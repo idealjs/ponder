@@ -1,6 +1,6 @@
 # 🤔 What is Ponder?
 
-Ponder aim to Be A Function Execution Framework
+Ponder aim to Be A FSM-based programming Framework
 
 ## 🚀 Quick Start
 
