@@ -8,5 +8,5 @@ const callback = () => {
 };
 
 process.env.HTTP2 === "true"
-  ? http2.listen(port, callback)
-  : http.listen(port, callback);
+  ? http2().listen(port, callback)
+  : http().listen(port, callback);

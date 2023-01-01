@@ -8,6 +8,7 @@
   "repository": "git@github.com:idealjs/mono-template.git",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint packages/**/*.{tsx,ts} --fix",
     "test": "jest"
   },
   "devDependencies": {

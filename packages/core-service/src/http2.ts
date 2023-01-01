@@ -11,4 +11,8 @@ const options = {
 
 const server = http2.createSecureServer(options, app.callback());
 
-export default server;
+const createServer = () => {
+  return server;
+};
+
+export default createServer;

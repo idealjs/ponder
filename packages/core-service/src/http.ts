@@ -4,4 +4,8 @@ import app from "./app";
 
 const server = http.createServer(app.callback());
 
-export default server;
+const createServer = () => {
+  return server;
+};
+
+export default createServer;
