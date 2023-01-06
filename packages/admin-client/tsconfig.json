@@ -3,7 +3,8 @@
   "compilerOptions": {
     "noEmit": true,
     "outDir": "./dist",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "disableSizeLimit": true
   },
   "include": ["src", "index.ts"],
   "exclude": ["node_modules"]
