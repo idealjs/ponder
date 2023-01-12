@@ -6,12 +6,15 @@ export interface ISchema {
 
 export interface IState {
   id: string;
+  name: string;
+  transitions: string[];
 }
 
 export interface ITransition {
   id: string;
   from: string;
-  to: string;
+  faild: string;
+  success: string;
   action: string;
 }
 
