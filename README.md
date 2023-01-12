@@ -7,10 +7,14 @@ Ponder aim to Be A FSM-based programming Framework
 ## 🥸 Why Use Ponder?
 
 ✅ Focus on state
+
 ✅ Logic is easy to reuse
+
 ✅ Scalability
 
-## 📓 A Confirm Manager
+## 📓 Tutorial 
+
+### Confirm Manager
 
 ```mermaid
 sequenceDiagram
@@ -70,8 +74,6 @@ stateDiagram-v2
     locked --> message_sent
     message_sent --> [*]
 ```
-
----
 
 ## 🔑 How Ponder Work?
 
