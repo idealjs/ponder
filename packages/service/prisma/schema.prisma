@@ -51,7 +51,7 @@ model Action {
   Schema   Schema? @relation(fields: [schemaId], references: [id])
   schemaId String?
 
-  url        String?
-  content    String?
-  Transition Transition[]
+  url         String?
+  content     String?
+  transitions Transition[]
 }
