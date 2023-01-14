@@ -1,1 +1,1 @@
-export { default as parseModuleContent } from "./parseModuleContent";
+export { default as parseModuleFromContent } from "./parseModuleFromContent";

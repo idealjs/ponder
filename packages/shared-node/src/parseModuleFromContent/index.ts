@@ -1,4 +1,4 @@
-const parseModuleContent = async (moduleContent: string) => {
+const parseModuleFromContent = async (moduleContent: string) => {
   let b64moduleData =
     "data:text/javascript;charset=utf-8;base64," +
     Buffer.from(moduleContent).toString("base64");
@@ -6,4 +6,4 @@ const parseModuleContent = async (moduleContent: string) => {
   return module;
 };
 
-export default parseModuleContent;
+export default parseModuleFromContent;
