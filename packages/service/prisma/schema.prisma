@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Schema {
+  id          String       @id @unique
+  states      State[]
+  transitions Transition[]
+  actions     Action[]
+}
+
+model State {
+  id       String  @id @unique
+  Schema   Schema? @relation(fields: [schemaId], references: [id])
+  schemaId String?
+
+  transitions            Transition[] @relation("startStateOnTransition")
+  fromFaildtransitions   Transition[] @relation("faildToStateOnTransition")
+  fromSuccessTransitions Transition[] @relation("successToStateOnTransition")
+}
+
+model Transition {
+  id String @id @unique
+
+  startFromState   State?  @relation("startStateOnTransition", fields: [startFromStateId], references: [id])
+  startFromStateId String?
+
+  faildToState   State?  @relation("faildToStateOnTransition", fields: [faildToStateId], references: [id])
+  faildToStateId String?
+
+  successToState   State?  @relation("successToStateOnTransition", fields: [successToStateId], references: [id])
+  successToStateId String?
+
+  action   Action @relation(fields: [actionId], references: [id])
+  actionId String
+
+  Schema   Schema? @relation(fields: [schemaId], references: [id])
+  schemaId String?
+}
+
+model Action {
+  id       String  @id @unique
+  Schema   Schema? @relation(fields: [schemaId], references: [id])
+  schemaId String?
+
+  url        String?
+  content    String?
+  Transition Transition[]
+}
