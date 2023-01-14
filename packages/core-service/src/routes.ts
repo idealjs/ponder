@@ -1,4 +1,4 @@
-import { parseModuleContent } from "@idealjs/ponder-server-shared";
+import { parseModuleContent } from "@idealjs/ponder-shared-node";
 import Router from "@koa/router";
 
 const router = new Router();
