@@ -12,7 +12,7 @@ Ponder aim to Be A FSM-based programming Framework
 
 ✅ Scalability
 
-## 📓 Tutorial 
+## 📓 Tutorial
 
 ### Confirm Manager
 

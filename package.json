@@ -8,12 +8,16 @@
   "repository": "git@github.com:idealjs/mono-template.git",
   "license": "MIT",
   "scripts": {
+    "format": "prettier --write .",
     "lint": "eslint packages/**/*.{tsx,ts} --fix",
     "test": "jest"
   },
   "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "lerna": "^4.0.0",
-    "lerna-update-wizard": "^1.1.2"
+    "lerna-update-wizard": "^1.1.2",
+    "prettier": "^2.8.3"
   }
 }
