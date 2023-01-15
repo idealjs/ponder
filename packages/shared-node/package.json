@@ -5,10 +5,18 @@
   "private": true,
   "scripts": {
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
+    "prisma": "^4.8.1",
     "vite": "^4.0.4",
     "vitest": "^0.27.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.8.1",
+    "@trpc/server": "^10.9.0",
+    "graphql": "^16.6.0",
+    "prisma-trpc-generator": "^1.0.2"
   }
 }
