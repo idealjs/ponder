@@ -1,10 +1,9 @@
-import Router from "@koa/router";
+import { FastifyPluginCallback } from "fastify";
 
-const router = new Router();
+const routes: FastifyPluginCallback = async (fastify) => {
+  fastify.get("/health", () => {
+    return { alive: 1 };
+  });
+};
 
-router.get("/health", async (ctx, next) => {
-  ctx.body = { alive: true };
-  next();
-});
-
-export default router;
+export default routes;
