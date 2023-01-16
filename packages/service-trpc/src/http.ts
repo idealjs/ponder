@@ -1,10 +1,11 @@
-import http from "http";
-
-import app from "./app";
+import Fastify from "fastify";
 
 const createServer = () => {
-  const server = http.createServer(app.callback());
-  return server;
+  const fastify = Fastify({
+    logger: true,
+  });
+
+  return fastify;
 };
 
 export default createServer;

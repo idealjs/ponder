@@ -1,22 +1,37 @@
 import { appRouter, PrismaClient } from "@idealjs/ponder-shared-node";
-import cors from "@koa/cors";
-import Koa from "koa";
-import { createKoaMiddleware } from "trpc-koa-adapter";
+import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
+import { FastifyInstance } from "fastify";
+import { IncomingMessage, Server, ServerResponse } from "http";
+import {
+  Http2SecureServer,
+  Http2ServerRequest,
+  Http2ServerResponse,
+} from "http2";
 
-const app = new Koa();
+import http from "./http";
+import http2 from "./http2";
+import routes from "./routes";
 
-app.use(cors());
+const app = (
+  process.env.HTTP2 === "true" ? http2() : http()
+) as FastifyInstance<
+  Http2SecureServer | Server,
+  IncomingMessage | Http2ServerRequest,
+  ServerResponse | Http2ServerResponse
+>;
 
-app.use(
-  createKoaMiddleware({
+app.register(routes);
+
+app.register(fastifyTRPCPlugin, {
+  prefix: "/trpc",
+  trpcOptions: {
     router: appRouter,
-    prefix: "/trpc",
     createContext: () => {
       return {
         prisma: new PrismaClient(),
       };
     },
-  })
-);
+  },
+});
 
 export default app;
