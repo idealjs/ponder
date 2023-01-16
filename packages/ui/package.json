@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "@idealjs/ponder-shared": "^1.0.0",
+    "@idealjs/ponder-shared-node": "^0.1.0",
+    "@tanstack/react-query": "^4.22.0",
+    "@trpc/client": "^10.9.0",
+    "@trpc/react-query": "^10.9.0",
+    "@trpc/server": "^10.9.0",
     "daisyui": "^2.46.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
