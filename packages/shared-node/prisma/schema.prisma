@@ -17,17 +17,19 @@ datasource db {
 }
 
 model Schema {
-  id          String       @id @unique
-  states      State[]
-  transitions Transition[]
-  actions     Action[]
+  id      String   @id @unique
+  states  State[]
+  actions Action[]
+
+  transition   Transition? @relation(fields: [transitionId], references: [id])
+  transitionId String?
 }
 
 model State {
-  id       String  @id @unique
-  Schema   Schema? @relation(fields: [schemaId], references: [id])
-  schemaId String?
-
+  id                     String       @id @unique
+  Schema                 Schema?      @relation(fields: [schemaId], references: [id])
+  schemaId               String?
+  isStartState           Boolean?
   transitions            Transition[] @relation("startStateOnTransition")
   fromFaildtransitions   Transition[] @relation("faildToStateOnTransition")
   fromSuccessTransitions Transition[] @relation("successToStateOnTransition")
@@ -45,11 +47,9 @@ model Transition {
   successToState   State?  @relation("successToStateOnTransition", fields: [successToStateId], references: [id])
   successToStateId String?
 
-  action   Action @relation(fields: [actionId], references: [id])
+  action   Action   @relation(fields: [actionId], references: [id])
   actionId String
-
-  Schema   Schema? @relation(fields: [schemaId], references: [id])
-  schemaId String?
+  Schema   Schema[]
 }
 
 model Action {
