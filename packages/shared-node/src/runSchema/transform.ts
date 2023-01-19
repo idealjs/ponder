@@ -1,33 +1,47 @@
-import type { Action, Schema, State, Transition } from "@prisma/client";
+import type { State, Transition } from "@prisma/client";
 
-import act from "./act";
+import { Optional } from "../type";
+import act, { TransformAction } from "./act";
+
+export type TransformState = Optional<
+  Pick<State, "id" | "transitionId">,
+  "transitionId"
+>;
+
+export type TransformTransition = Optional<
+  Pick<Transition, "id" | "actionId" | "faildToStateId" | "successToStateId">,
+  "actionId" | "faildToStateId" | "successToStateId"
+>;
+
+export type { TransformAction } from "./act";
+
+export type TransformSchema = {
+  id: string;
+  states: Partial<Record<TransformState["id"], TransformState>>;
+  transitions: Partial<Record<TransformTransition["id"], TransformTransition>>;
+  actions: Partial<Record<TransformAction["id"], TransformAction>>;
+};
 
 const transform = async (
-  state: State,
-  schema: Schema & {
-    states: State[];
-    transitions: Transition[];
-    actions: Action[];
-  },
+  state: TransformState,
+  schema: TransformSchema,
   payload?: any
 ): Promise<{
   stateId: string;
-  error: any | null;
-  result: any | null;
+  error?: any;
+  result?: any;
 }> => {
-  const transition = schema.transitions.find(
-    (transition) => transition.id === state?.transitionId
-  );
+  const transition = state?.transitionId
+    ? schema.transitions[state.transitionId]
+    : null;
 
-  const action = schema.actions.find(
-    (action) => action.id === transition?.actionId
-  );
+  const action = transition?.actionId
+    ? schema.actions[transition.actionId]
+    : null;
 
   if (action == null) {
     return {
       stateId: state.id,
-      result: null,
-      error: null,
     };
   }
 
@@ -52,7 +66,7 @@ const transform = async (
     ? transition?.successToStateId
     : transition?.faildToStateId;
 
-  const nextState = schema.states.find((state) => state.id === nextStateId);
+  const nextState = nextStateId ? schema.states[nextStateId] : null;
 
   if (nextState == null) {
     return {

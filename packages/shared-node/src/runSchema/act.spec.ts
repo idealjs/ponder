@@ -22,15 +22,13 @@ describe("act", () => {
     });
 
     const content = fs
-      .readFileSync(path.resolve(__dirname, "./act.true.test"))
+      .readFileSync(path.resolve(__dirname, "./act_true.case.js"))
       .toString();
 
     const actPayload = "any payload";
     const actResult = await act(
       {
         id: "testId",
-        schemaId: null,
-        url: null,
         content,
       },
       {
@@ -73,15 +71,13 @@ describe("act", () => {
     });
 
     const content = fs
-      .readFileSync(path.resolve(__dirname, "./act.false.test"))
+      .readFileSync(path.resolve(__dirname, "./act_false.case.js"))
       .toString();
 
     const actPayload = "any payload";
     const actResult = await act(
       {
         id: "testId",
-        schemaId: null,
-        url: null,
         content,
       },
       {

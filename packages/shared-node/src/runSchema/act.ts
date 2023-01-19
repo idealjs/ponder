@@ -1,9 +1,15 @@
-import type { Action } from "@prisma/client";
+import { Action } from "@prisma/client";
 
 import parseModuleFromContent from "../parseModuleFromContent";
+import { Optional } from "../type";
+
+export type TransformAction = Optional<
+  Pick<Action, "id" | "content">,
+  "content"
+>;
 
 const act = async (
-  action: Action,
+  action: TransformAction,
   helper: {
     payload: any;
     setNextPayload: (payload: any) => void;

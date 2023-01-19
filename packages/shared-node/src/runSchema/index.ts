@@ -1,5 +1,6 @@
 import type { Action, Schema, State, Transition } from "@prisma/client";
 
+import arrayToRecord from "./arrayToRecord";
 import transform from "./transform";
 
 const runSchema = async (
@@ -16,7 +17,17 @@ const runSchema = async (
   if (startState == null) {
     return;
   }
-  return await transform(startState, schema, payload);
+
+  return await transform(
+    startState,
+    {
+      ...schema,
+      states: arrayToRecord(schema.states),
+      transitions: arrayToRecord(schema.transitions),
+      actions: arrayToRecord(schema.actions),
+    },
+    payload
+  );
 };
 
 export default runSchema;

@@ -6,7 +6,9 @@ import parseModuleFromContent from ".";
 
 describe("parseModuleFromContent", () => {
   it("export default", async () => {
-    const script = fs.readFileSync(path.resolve(__dirname, "./sum")).toString();
+    const script = fs
+      .readFileSync(path.resolve(__dirname, "./sum.case.js"))
+      .toString();
 
     const module = await parseModuleFromContent(script);
     const result = module.default(1, 2);
@@ -14,7 +16,9 @@ describe("parseModuleFromContent", () => {
   });
 
   it("export sum", async () => {
-    const script = fs.readFileSync(path.resolve(__dirname, "./sum")).toString();
+    const script = fs
+      .readFileSync(path.resolve(__dirname, "./sum.case.js"))
+      .toString();
 
     const module = await parseModuleFromContent(script);
     const result = module.sum(1, 2);
