@@ -1,6 +1,6 @@
 import type { Action, Schema, State, Transition } from "@prisma/client";
 
-import transform from "./transfrom";
+import transform from "./transform";
 
 const runSchema = async (
   schema: Schema & {
