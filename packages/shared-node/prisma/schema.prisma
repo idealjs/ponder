@@ -48,8 +48,8 @@ model Transition {
   successToState   State?  @relation("successToStateOnTransition", fields: [successToStateId], references: [id])
   successToStateId String?
 
-  action   Action   @relation(fields: [actionId], references: [id])
-  actionId String
+  action   Action?  @relation(fields: [actionId], references: [id])
+  actionId String?
   Schema   Schema[]
   State    State[]
 }
