@@ -1,5 +1,5 @@
 {
-  "extends": ["react-app"],
+  "extends": ["react-app", "plugin:valtio/recommended"],
   "plugins": ["simple-import-sort"],
   "rules": {
     "quotes": "warn",

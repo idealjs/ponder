@@ -1,27 +1,16 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/react-query";
-
 import { Schemas } from "./features";
-import trpc from "./trpc";
-
-const queryClient = new QueryClient();
-const trpcClient = trpc.createClient({
-  links: [
-    httpBatchLink({
-      url: "http://localhost:3010/trpc",
-    }),
-  ],
-});
+import SchemaEditor from "./features/SchemaEditor";
+import { useQuerySchemas } from "./hooks";
+import { useSelectedSchema } from "./store";
 
 function App() {
+  useQuerySchemas();
+  const selectedSchema = useSelectedSchema();
+
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <div className="App text-3xl font-bold underline">
-          <Schemas />
-        </div>
-      </QueryClientProvider>
-    </trpc.Provider>
+    <div className="App h-screen w-screen">
+      {selectedSchema == null ? <Schemas /> : <SchemaEditor />}
+    </div>
   );
 }
 
