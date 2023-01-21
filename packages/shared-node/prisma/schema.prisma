@@ -2,18 +2,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator trpc {
-  provider          = "prisma-trpc-generator"
-  output            = "../src/trpc/generated"
-  contextPath       = "../src/trpc/context"
-  withShield        = false
-  isGenerateInclude = true
-  isGenerateSelect  = true
-}
+// generator trpc {
+//   provider          = "prisma-trpc-generator"
+//   output            = "../src/trpc/generated"
+//   contextPath       = "../src/trpc/context"
+//   withShield        = false
+//   isGenerateInclude = true
+//   isGenerateSelect  = true
+// }
 
 generator fastify {
-  provider = "ts-node ../prisma-generator-fastify/src/bin.ts"
-  output   = "../src/generated"
+  provider          = "ts-node ../prisma-generator-fastify/src/bin.ts"
+  output            = "../src/fastify/generated"
+  isGenerateInclude = true
+  isGenerateSelect  = true
 }
 
 datasource db {
@@ -26,6 +28,10 @@ model Schema {
   states      State[]
   transitions Transition[]
   actions     Action[]
+}
+
+enum Test {
+  Test
 }
 
 model State {

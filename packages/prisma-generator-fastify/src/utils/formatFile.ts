@@ -1,3 +1,4 @@
+import { logger } from "@prisma/internals";
 import prettier from "prettier";
 
 export const formatFile = (content: string): Promise<string> => {
@@ -9,6 +10,7 @@ export const formatFile = (content: string): Promise<string> => {
 
       res(formatted);
     } catch (error) {
+      logger.error(error);
       rej(error);
     }
   });

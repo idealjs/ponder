@@ -13,7 +13,6 @@
     "@prisma/generator-helper": "^4.9.0",
     "@prisma/internals": "^4.9.0",
     "ejs": "^3.1.8",
-    "pluralize": "^8.0.0",
     "prettier": "2.5.1"
   },
   "devDependencies": {
@@ -21,6 +20,10 @@
     "@types/node": "^16.6.2",
     "@types/prettier": "2.4.2",
     "prisma": "^4.9.0",
+    "prisma-zod-generator": "^0.8.11",
     "typescript": "^4.9.4"
+  },
+  "peerDependencies": {
+    "prisma-zod-generator": "^0.8.11"
   }
 }

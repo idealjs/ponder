@@ -2,12 +2,13 @@ import { DMMF } from "@prisma/generator-helper";
 import ejs from "ejs";
 import path from "path";
 
-export const genEnum = async ({ name, values }: DMMF.DatamodelEnum) => {
+export const genFastify = async ({ name }: DMMF.Model) => {
   return await ejs.renderFile(
-    path.resolve(__dirname, "../templates/getEnum.ejs"),
+    path.resolve(__dirname, "../templates/genFastify.ejs"),
     {
       name,
-      values,
     }
   );
 };
+
+export default genFastify;

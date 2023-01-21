@@ -1,1 +1,1 @@
-export const GENERATOR_NAME = "prisma-generator-fastify"
+export const GENERATOR_NAME = "prisma-generator-fastify-routes"

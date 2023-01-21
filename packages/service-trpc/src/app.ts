@@ -1,5 +1,10 @@
 import cors from "@fastify/cors";
-import { appRouter, PrismaClient } from "@idealjs/ponder-shared-node";
+import {
+  appRouter,
+  PrismaClient,
+  prismaFastifyPlugin,
+  prismaPlugin,
+} from "@idealjs/ponder-shared-node";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import { FastifyInstance } from "fastify";
 import { IncomingMessage, Server, ServerResponse } from "http";
@@ -11,7 +16,6 @@ import {
 
 import http from "./http";
 import http2 from "./http2";
-import prismaPlugin from "./prismaPlugin";
 import routes from "./routes";
 
 const app = (
@@ -38,5 +42,6 @@ app.register(fastifyTRPCPlugin, {
 });
 
 app.register(prismaPlugin);
+app.register(prismaFastifyPlugin);
 
 export default app;

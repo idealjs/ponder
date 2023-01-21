@@ -1,9 +1,12 @@
 import { generatorHandler, GeneratorOptions } from "@prisma/generator-helper";
 import { logger } from "@prisma/internals";
 import path from "path";
+import { generate as prismaZodGenerator } from "prisma-zod-generator/lib/prisma-generator";
 
 import { GENERATOR_NAME } from "./constants";
-import { genEnum } from "./helpers/genEnum";
+import genFastify from "./helpers/genFastify";
+import genPrismaPlugin from "./helpers/genPrismaPlugin";
+import genRoutesExport from "./helpers/genRoutesExport";
 import { writeFileSafely } from "./utils/writeFileSafely";
 
 generatorHandler({
@@ -15,18 +18,24 @@ generatorHandler({
     };
   },
   onGenerate: async (options: GeneratorOptions) => {
-    options.dmmf.datamodel.enums.forEach(async (enumInfo) => {
-      const tsEnum = await genEnum(enumInfo);
+    await prismaZodGenerator(options);
+
+    options.dmmf.datamodel.models.forEach(async (info) => {
+      const content = await genFastify(info);
       const writeLocation = path.join(
         options.generator.output?.value!,
-        `${enumInfo.name}.ts`
+        `routes/${info.name}.ts`
       );
 
-      await writeFileSafely(writeLocation, tsEnum);
+      await writeFileSafely(writeLocation, content);
     });
-
-    options.dmmf.datamodel.models.forEach(async(modelInfo)=>{
-      
-    })
+    await writeFileSafely(
+      path.join(options.generator.output?.value!, "prismaPlugin.ts"),
+      await genPrismaPlugin()
+    );
+    await writeFileSafely(
+      path.join(options.generator.output?.value!, "routes/index.ts"),
+      await genRoutesExport(options.dmmf.datamodel.models)
+    );
   },
 });
