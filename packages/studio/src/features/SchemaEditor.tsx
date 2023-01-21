@@ -18,7 +18,8 @@ const SchemaEditor = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);
 
-  const state = trpc.state.updateOneState.useMutation();
+  const { mutate } = trpc.state.updateOneState.useMutation();
+
   return (
     <div style={{ height: "100%" }}>
       <ReactFlowProvider>
@@ -28,7 +29,7 @@ const SchemaEditor = () => {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onNodeDragStop={(_, node) => {
-            state.mutate({
+            mutate({
               where: {
                 id: node.id,
               },
