@@ -11,27 +11,27 @@ import { <%= name %>DeleteManySchema } from "../schemas"
 const routes: FastifyPluginAsync = async (fastify) => {
   fastify.get("/<%= name.toLowerCase() %>/findMany", async (req) => {
     <%= name %>FindManySchema.parse(req.params);
-    fastify.prisma.<%= name.toLowerCase() %>.findMany(req.params as Prisma.<%= name %>FindManyArgs);
+    return fastify.prisma.<%= name.toLowerCase() %>.findMany(req.params as Prisma.<%= name %>FindManyArgs);
   });
   
   fastify.post("/<%= name.toLowerCase() %>/createMany", async (req) => {
     <%= name %>CreateManySchema.parse(req.body);
-    fastify.prisma.<%= name.toLowerCase() %>.createMany(req.body as Prisma.<%= name %>CreateManyArgs);
+    return fastify.prisma.<%= name.toLowerCase() %>.createMany(req.body as Prisma.<%= name %>CreateManyArgs);
   });
   
   fastify.patch("/<%= name.toLowerCase() %>/updateMany", async (req) => {
     <%= name %>UpdateManySchema.parse(req.body);
-    fastify.prisma.<%= name.toLowerCase() %>.updateMany(req.body as Prisma.<%= name %>UpdateManyArgs);
+    return fastify.prisma.<%= name.toLowerCase() %>.updateMany(req.body as Prisma.<%= name %>UpdateManyArgs);
   });
   
   fastify.put("/<%= name.toLowerCase() %>/upsert", async (req) => {
     <%= name %>UpsertSchema.parse(req.body);
-    fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
+    return fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
   });
   
   fastify.delete("/<%= name.toLowerCase() %>/deleteMany", async (req) => {
     <%= name %>DeleteManySchema.parse(req.body);
-    fastify.prisma.<%= name.toLowerCase() %>.deleteMany(req.body as Prisma.<%= name %>DeleteManyArgs);
+    return fastify.prisma.<%= name.toLowerCase() %>.deleteMany(req.body as Prisma.<%= name %>DeleteManyArgs);
   });
 };
 
