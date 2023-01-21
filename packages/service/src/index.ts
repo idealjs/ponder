@@ -2,8 +2,11 @@ import app from "./app";
 
 const port = 3010;
 
-const callback = () => {
+const callback = (err: Error | null) => {
   console.debug(`[debug] server is listen on port ${port}`);
+  if (err) {
+    console.error(err);
+  }
 };
 
 app.listen({ port }, callback);
