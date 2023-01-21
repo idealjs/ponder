@@ -27,4 +27,3 @@ docker-compose up
 ```
 cd packages/shared-node && yarn prisma migrate deploy && cd -
 ```
-
