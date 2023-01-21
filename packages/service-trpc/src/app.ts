@@ -11,6 +11,7 @@ import {
 
 import http from "./http";
 import http2 from "./http2";
+import prismaPlugin from "./prismaPlugin";
 import routes from "./routes";
 
 const app = (
@@ -35,5 +36,7 @@ app.register(fastifyTRPCPlugin, {
     },
   },
 });
+
+app.register(prismaPlugin);
 
 export default app;

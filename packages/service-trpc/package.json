@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "generate:key": "openssl req -x509 -newkey rsa:2048 -nodes -sha256 -subj '/CN=localhost' -addext 'subjectAltName = DNS.1:localhost' -keyout server.key -out server.crt",
-    "dev": "nodemon",
-    "postinstall": "prisma generate"
+    "dev": "nodemon"
   },
   "devDependencies": {
     "@swc/core": "^1.3.24",
