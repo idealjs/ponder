@@ -17,8 +17,8 @@ generator fastify {
 }
 
 generator zod {
-  provider         = "zod-prisma-types"
-  createInputTypes = true
+  provider = "zod-prisma-types"
+  output   = "../src/fastify/generated/zod"
 }
 
 datasource db {

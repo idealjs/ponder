@@ -1,13 +1,36 @@
 import { PrismaClient } from "@prisma/client";
 import { FastifyPluginAsync } from "fastify";
 import fp from "fastify-plugin";
+import type { FastifyZod } from "fastify-zod";
+import { buildJsonSchemas, register } from "fastify-zod";
+import z from "zod";
+
+import * as zodSchemas from "./zod";
+
+<% names.sort().forEach((name)=>{ %>const <%= name %>ArraySchema = z.array(zodSchemas.<%= name %>Schema);
+<% }) %>
+
+const BatchPayloadSchema = z.object({
+  count: z.number(),
+});
+
+const schemas = {
+  ...zodSchemas,
+  <% names.sort().forEach((name)=>{ %><%= name %>ArraySchema,
+  <% }) %>
+  BatchPayloadSchema
+}
 
 // Use TypeScript module augmentation to declare the type of server.prisma to be PrismaClient
 declare module "fastify" {
   interface FastifyInstance {
     prisma: PrismaClient;
+    readonly zod: FastifyZod<typeof schemas>;
   }
 }
+
+
+
 
 const prismaPlugin: FastifyPluginAsync = async (fastify) => {
   const prisma = new PrismaClient();
@@ -18,6 +41,14 @@ const prismaPlugin: FastifyPluginAsync = async (fastify) => {
 
   fastify.addHook("onClose", async (fastify) => {
     await fastify.prisma.$disconnect();
+  });
+
+  await register(fastify, { 
+    jsonSchemas: buildJsonSchemas({
+      ...zodSchemas,
+      <% names.sort().forEach((name)=>{ %><%= name %>ArraySchema,
+      <% }) %>
+    }) 
   });
 };
 

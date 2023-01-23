@@ -28,7 +28,7 @@ generatorHandler({
     });
     await writeFileSafely(
       path.join(options.generator.output?.value!, "prismaPlugin.ts"),
-      await genPrismaPlugin()
+      await genPrismaPlugin(options.dmmf.datamodel.models)
     );
     await writeFileSafely(
       path.join(options.generator.output?.value!, "routes/index.ts"),
