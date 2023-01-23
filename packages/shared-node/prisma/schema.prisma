@@ -2,25 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// generator trpc {
-//   provider          = "prisma-trpc-generator"
-//   output            = "../src/trpc/generated"
-//   contextPath       = "../src/trpc/context"
-//   withShield        = false
-//   isGenerateInclude = true
-//   isGenerateSelect  = true
-// }
-
-generator fastify {
-  provider = "ts-node ../prisma-generator-fastify/src/bin.ts"
-  output   = "../src/fastify/generated"
-}
-
-generator zod {
-  provider = "zod-prisma-types"
-  output   = "../src/fastify/generated/zod"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -31,10 +12,6 @@ model Schema {
   states      State[]
   transitions Transition[]
   actions     Action[]
-}
-
-enum Test {
-  Test
 }
 
 model State {

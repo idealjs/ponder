@@ -2284,7 +2284,7 @@
   resolved "https://registry.npmmirror.com/@opentelemetry/semantic-conventions/-/semantic-conventions-1.9.0.tgz#461a6061bc14922bb6ef268f883ac1afacc17e04"
   integrity sha512-po7penSfQ/Z8352lRVDpaBrd9znwA5mHGqXR7nDEiVnxkDFkBIhVf/tKeAJDIq/erFpcRowKFeCsr5eqqcSyFQ==
 
-"@prisma/client@^4.8.0", "@prisma/client@^4.9.0":
+"@prisma/client@^4.9.0":
   version "4.9.0"
   resolved "https://registry.npmmirror.com/@prisma/client/-/client-4.9.0.tgz#4a4068f3540732ea5723c008d49ed684d20f9340"
   integrity sha512-bz6QARw54sWcbyR1lLnF2QHvRW5R/Jxnbbmwh3u+969vUKXtBkXgSgjDA85nji31ZBlf7+FrHDy5x+5ydGyQDg==
@@ -2372,7 +2372,7 @@
     chalk "4.1.2"
     ts-pattern "4.0.6"
 
-"@prisma/internals@^4.8.0", "@prisma/internals@^4.9.0":
+"@prisma/internals@^4.9.0":
   version "4.9.0"
   resolved "https://registry.npmmirror.com/@prisma/internals/-/internals-4.9.0.tgz#3cc134e436cd0e9a64b759abef5a76496f38f267"
   integrity sha512-xzUtCAPmrWBlMCyFbemeE3CZulS01kFFPQALOS6csNKjzHNsywPMNhK2IDUaUUurPmQ/x2/i5zZ9k6uqnMPsLQ==
@@ -2601,16 +2601,6 @@
   integrity sha512-RMSSvSfs9kb0VzkvQ2NWobwnj7TxCA9vI/IjR9bDHqgAyVbu2T0DN4wiKVqomyDWqO7dPr/tErSfq7urQ1Q37g==
   dependencies:
     fast-glob "^3.2.11"
-    minimatch "^5.1.0"
-    mkdirp "^1.0.4"
-    path-browserify "^1.0.1"
-
-"@ts-morph/common@~0.18.0":
-  version "0.18.1"
-  resolved "https://registry.npmmirror.com/@ts-morph/common/-/common-0.18.1.tgz#ca40c3a62c3f9e17142e0af42633ad63efbae0ec"
-  integrity sha512-RVE+zSRICWRsfrkAw5qCAK+4ZH9kwEFv5h0+/YeHTLieWP7F4wWq4JsKFuNWG+fYh/KF+8rAtgdj5zb2mm+DVA==
-  dependencies:
-    fast-glob "^3.2.12"
     minimatch "^5.1.0"
     mkdirp "^1.0.4"
     path-browserify "^1.0.1"
@@ -7962,11 +7952,6 @@ pkg-types@^1.0.1:
     mlly "^1.0.0"
     pathe "^1.0.0"
 
-pluralize@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.npmmirror.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
-  integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
-
 postcss-import@^14.1.0:
   version "14.1.0"
   resolved "https://registry.npmmirror.com/postcss-import/-/postcss-import-14.1.0.tgz#a7333ffe32f0b8795303ee9e40215dac922781f0"
@@ -8030,7 +8015,7 @@ prettier@2.5.1:
   resolved "https://registry.npmmirror.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
   integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
 
-prettier@^2.8.1, prettier@^2.8.3:
+prettier@^2.8.3:
   version "2.8.3"
   resolved "https://registry.npmmirror.com/prettier/-/prettier-2.8.3.tgz#ab697b1d3dd46fb4626fbe2f543afe0cc98d8632"
   integrity sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==
@@ -8039,43 +8024,6 @@ pretty-hrtime@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmmirror.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==
-
-prisma-trpc-generator@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmmirror.com/prisma-trpc-generator/-/prisma-trpc-generator-1.0.2.tgz#7b422132e3c01df3bbff424d38caa4cf43851b48"
-  integrity sha512-R5OKFmqZbLsAtiDGTdTL6lA2Y/pN8poo8crCoIAaJIfsLQBYDDsV01+SUIdyBzxO1o7V3k6/RQwqW5s8xTpbgw==
-  dependencies:
-    "@prisma/client" "^4.8.0"
-    "@prisma/generator-helper" "^4.8.0"
-    "@prisma/internals" "^4.8.0"
-    pluralize "^8.0.0"
-    prisma-trpc-shield-generator "0.1.0"
-    prisma-zod-generator "^0.8.11"
-    ts-morph "^17.0.1"
-    tslib "^2.4.1"
-
-prisma-trpc-shield-generator@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmmirror.com/prisma-trpc-shield-generator/-/prisma-trpc-shield-generator-0.1.0.tgz#c59e03e7c469f0ebdf7295c91f28669f44953a18"
-  integrity sha512-gxcYcnZ8B7zkxNYdc3V+zyyEnEL5RAMqYE96+Y23WLwD9Gy2G2rPDEa/hZS3OkGYAv0JraJkO/RN/XseX03IPQ==
-  dependencies:
-    "@prisma/client" "^4.8.0"
-    "@prisma/generator-helper" "^4.8.0"
-    "@prisma/internals" "^4.8.0"
-    prettier "^2.8.1"
-    zod "^3.20.2"
-
-prisma-zod-generator@^0.8.11:
-  version "0.8.11"
-  resolved "https://registry.npmmirror.com/prisma-zod-generator/-/prisma-zod-generator-0.8.11.tgz#6ca4e0e38b96aa925dd0894fe32f3a1e7d84153a"
-  integrity sha512-wp0+pxSJLMQhlOkfH+Y4FhFiZrrn7QEVL4aPJAoMyiW4Il0wJmipBMAfjJydKyu9tmGQp4QcAcD6vHNf9tI6ZA==
-  dependencies:
-    "@prisma/client" "^4.8.0"
-    "@prisma/generator-helper" "^4.8.0"
-    "@prisma/internals" "^4.8.0"
-    prettier "^2.8.1"
-    tslib "^2.4.1"
-    zod "^3.20.2"
 
 prisma@^4.9.0:
   version "4.9.0"
@@ -9431,14 +9379,6 @@ ts-morph@^16.0.0:
     "@ts-morph/common" "~0.17.0"
     code-block-writer "^11.0.3"
 
-ts-morph@^17.0.1:
-  version "17.0.1"
-  resolved "https://registry.npmmirror.com/ts-morph/-/ts-morph-17.0.1.tgz#d85df4fcf9a1fcda1b331d52c00655f381c932d1"
-  integrity sha512-10PkHyXmrtsTvZSL+cqtJLTgFXkU43Gd0JCc0Rw6GchWbqKe0Rwgt1v3ouobTZwQzF1mGhDeAlWYBMGRV7y+3g==
-  dependencies:
-    "@ts-morph/common" "~0.18.0"
-    code-block-writer "^11.0.3"
-
 ts-node@^10.9.1:
   version "10.9.1"
   resolved "https://registry.npmmirror.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
@@ -9493,7 +9433,7 @@ tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.npmmirror.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.3, tslib@^2.1.0, tslib@^2.4.0, tslib@^2.4.1:
+tslib@^2.0.3, tslib@^2.1.0, tslib@^2.4.0:
   version "2.4.1"
   resolved "https://registry.npmmirror.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
   integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
