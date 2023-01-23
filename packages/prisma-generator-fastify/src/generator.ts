@@ -1,7 +1,6 @@
 import { generatorHandler, GeneratorOptions } from "@prisma/generator-helper";
 import { logger } from "@prisma/internals";
 import path from "path";
-import { generate as prismaZodGenerator } from "prisma-zod-generator/lib/prisma-generator";
 
 import { GENERATOR_NAME } from "./constants";
 import genFastify from "./helpers/genFastify";
@@ -18,8 +17,6 @@ generatorHandler({
     };
   },
   onGenerate: async (options: GeneratorOptions) => {
-    await prismaZodGenerator(options);
-
     options.dmmf.datamodel.models.forEach(async (info) => {
       const content = await genFastify(info);
       const writeLocation = path.join(
