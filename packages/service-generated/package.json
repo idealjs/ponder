@@ -19,7 +19,6 @@
     "@fastify/cors": "^8.2.0",
     "@idealjs/ponder-shared-node": "^0.1.0",
     "@trpc/server": "^10.9.0",
-    "fastify": "^4.11.0",
-    "zod": "^3.20.2"
+    "fastify": "^4.11.0"
   }
 }

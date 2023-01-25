@@ -1,0 +1,42 @@
+import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox"
+import type { Prisma } from "@prisma/client";
+import fp from "fastify-plugin";
+
+const routes: FastifyPluginAsyncTypebox = async (fastify) => {
+  fastify.get("/<%= name.toLowerCase() %>/findMany",
+  {
+  },
+  async (req) => {
+    return fastify.prisma.<%= name.toLowerCase() %>.findMany(req.params as Prisma.<%= name %>FindManyArgs);
+  });
+  
+  fastify.post("/<%= name.toLowerCase() %>/createMany",
+  {
+  },
+  async (req) => {
+    return fastify.prisma.<%= name.toLowerCase() %>.createMany(req.body as Prisma.<%= name %>CreateManyArgs);
+  });
+  
+  fastify.patch("/<%= name.toLowerCase() %>/updateMany",
+  {
+  },
+  async (req) => {
+    return fastify.prisma.<%= name.toLowerCase() %>.updateMany(req.body as Prisma.<%= name %>UpdateManyArgs);
+  });
+  
+  fastify.put("/<%= name.toLowerCase() %>/upsert",
+  {
+  },
+  async (req) => {
+    return fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
+  });
+  
+  fastify.delete("/<%= name.toLowerCase() %>/deleteMany",
+  {
+  },
+  async (req) => {
+    return fastify.prisma.<%= name.toLowerCase() %>.deleteMany(req.body as Prisma.<%= name %>DeleteManyArgs);
+  });
+};
+
+export default fp(routes);

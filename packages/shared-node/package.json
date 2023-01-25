@@ -5,16 +5,16 @@
   "private": true,
   "scripts": {
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
-    "fastify-zod": "^1.2.0"
+    "@sinclair/typebox": "^0.25.21"
   },
   "devDependencies": {
     "prisma": "^4.9.0",
     "ts-node": "^10.9.1",
-    "vitest": "^0.27.1",
-    "zod-prisma-types": "^1.6.7"
+    "vitest": "^0.27.1"
   }
 }

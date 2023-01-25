@@ -1,40 +1,46 @@
+import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { runSchema } from "@idealjs/ponder-shared-node";
-import { FastifyPluginCallback } from "fastify";
-import zod from "zod";
+import { Type } from "@sinclair/typebox";
 
 import prisma from "./prisma";
 
-const routes: FastifyPluginCallback = async (fastify) => {
+const routes: FastifyPluginAsyncTypebox = async (fastify) => {
   fastify.get("/health", () => {
     return { alive: 1 };
   });
 
-  fastify.post("/task", async (request) => {
-    const bodySchema = zod.object({
-      schemaId: zod.string(),
-    });
-    const body = bodySchema.parse(request.body);
-    const { schemaId } = body;
-    const schema = await prisma.schema.findUnique({
-      where: {
-        id: schemaId,
+  fastify.post(
+    "/task",
+    {
+      schema: {
+        body: Type.Object({
+          schemaId: Type.String(),
+        }),
       },
-      include: {
-        states: true,
-        transitions: true,
-        actions: true,
-      },
-    });
+    },
+    async (request) => {
+      const { schemaId } = request.body;
+      const schema = await prisma.schema.findUnique({
+        where: {
+          id: schemaId,
+        },
+        include: {
+          states: true,
+          transitions: true,
+          actions: true,
+        },
+      });
 
-    if (schema == null) {
-      return {};
+      if (schema == null) {
+        return {};
+      }
+
+      const result = runSchema(schema);
+      return {
+        result,
+      };
     }
-
-    const result = runSchema(schema);
-    return {
-      result,
-    };
-  });
+  );
 };
 
 export default routes;

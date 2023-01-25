@@ -18,6 +18,8 @@ const app = (
   ServerResponse | Http2ServerResponse
 >;
 
+app.withTypeProvider()
+
 app.register(routes);
 
 export default app;

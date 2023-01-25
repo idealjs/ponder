@@ -1,5 +1,5 @@
 import cors from "@fastify/cors";
-import { prismaFastifyPlugin, prismaPlugin } from "@idealjs/ponder-shared-node";
+import { prismaPlugin } from "@idealjs/ponder-shared-node";
 import { FastifyInstance } from "fastify";
 import { IncomingMessage, Server, ServerResponse } from "http";
 import {
@@ -24,6 +24,5 @@ app.register(cors);
 app.register(routes);
 
 app.register(prismaPlugin);
-app.register(prismaFastifyPlugin);
 
 export default app;
