@@ -1,13 +1,7 @@
 {
-  "name": "prisma-generator-fastify",
+  "name": "@idealjs/ponder-generator-browser",
   "version": "0.1.0",
   "private": "true",
-  "scripts": {
-    "start": "node dist/bin.js",
-    "dev": "tsc -w",
-    "build": "tsc",
-    "prepack": "yarn build"
-  },
   "dependencies": {
     "@prisma/client": "^4.9.0",
     "@prisma/generator-helper": "^4.9.0",
@@ -19,7 +13,6 @@
     "@types/ejs": "^3.1.1",
     "@types/node": "^16.6.2",
     "@types/prettier": "2.4.2",
-    "prisma": "^4.9.0",
     "typescript": "^4.9.4"
   }
 }

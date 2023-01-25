@@ -1,5 +1,5 @@
 {
-  "name": "@idealjs/ponder-service-trpc",
+  "name": "@idealjs/ponder-service-generated",
   "version": "0.1.0",
   "private": true,
   "type": "module",

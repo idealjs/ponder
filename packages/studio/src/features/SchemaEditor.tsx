@@ -9,7 +9,6 @@ import ReactFlow, {
 } from "reactflow";
 
 import { useStateNodes, useTransitionEdges } from "../store";
-import trpc from "../trpc";
 
 const SchemaEditor = () => {
   const stateNodes = useStateNodes();
@@ -17,8 +16,6 @@ const SchemaEditor = () => {
 
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);
-
-  const { mutate } = trpc.state.updateOneState.useMutation();
 
   return (
     <div style={{ height: "100%" }}>
@@ -29,15 +26,15 @@ const SchemaEditor = () => {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onNodeDragStop={(_, node) => {
-            mutate({
-              where: {
-                id: node.id,
-              },
-              data: {
-                positionX: node.position.x,
-                positionY: node.position.y,
-              },
-            });
+            // mutate({
+            //   where: {
+            //     id: node.id,
+            //   },
+            //   data: {
+            //     positionX: node.position.x,
+            //     positionY: node.position.y,
+            //   },
+            // });
           }}
         >
           <Background />

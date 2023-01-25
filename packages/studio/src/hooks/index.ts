@@ -1,8 +1,8 @@
 import type { Prisma } from "@idealjs/ponder-shared-node";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 import { useSetSchemas } from "../store";
-import trpc from "../trpc";
 
 const query = {
   where: {},
@@ -16,10 +16,20 @@ const query = {
 type Schema = Prisma.SchemaGetPayload<typeof query>;
 
 export const useQuerySchemas = () => {
-  const result = trpc.schema.findManySchema.useQuery<any, Schema[]>(query);
   const setSchemas = useSetSchemas();
+  action.useActionQuery();
+  // useEffect(() => {
+  //   setSchemas(result.data);
+  // }, [result.data, setSchemas]);
+};
 
-  useEffect(() => {
-    setSchemas(result.data);
-  }, [result.data, setSchemas]);
+export const action = {
+  useActionQuery: (query?: Prisma.ActionFindManyArgs) => {
+    return useQuery({
+      queryKey: ["action", query],
+    });
+  },
+  useActionMutate: () => {
+    useMutation({});
+  },
 };
