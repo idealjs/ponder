@@ -1,8 +1,8 @@
-import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox"
 import type { Prisma } from "@prisma/client";
+import { FastifyPluginAsync } from "fastify";
 import fp from "fastify-plugin";
 
-const routes: FastifyPluginAsyncTypebox = async (fastify) => {
+const routes: FastifyPluginAsync = async (fastify) => {
   fastify.get("/<%= name.toLowerCase() %>/findMany",
   {
   },
