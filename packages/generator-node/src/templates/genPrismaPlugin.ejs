@@ -1,17 +1,13 @@
-import {
-  TypeBoxTypeProvider,
-  TypeBoxValidatorCompiler,
-} from "@fastify/type-provider-typebox";import { PrismaClient } from "@prisma/client";
-// import { Type } from "@sinclair/typebox";
+import { PrismaClient } from "@prisma/client";
 import { FastifyPluginAsync } from "fastify";
 import fp from "fastify-plugin";
+import {
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from "fastify-type-provider-zod";
 
 import routes from "./routes";
-
-// import * as typeboxSchemas from "./typebox";
-// 
-// <% names.sort().forEach((name)=>{ %>export const <%= name %>ArraySchema = Type.Array(typeboxSchemas.<%= name %>);
-// <% }) %>
 
 // Use TypeScript module augmentation to declare the type of server.prisma to be PrismaClient
 declare module "fastify" {
@@ -31,8 +27,9 @@ const prismaPlugin: FastifyPluginAsync = async (fastify) => {
     await fastify.prisma.$disconnect();
   });
 
-  fastify.setValidatorCompiler(TypeBoxValidatorCompiler);
-  fastify.withTypeProvider<TypeBoxTypeProvider>()
+  fastify.setValidatorCompiler(validatorCompiler);
+  fastify.setSerializerCompiler(serializerCompiler);
+  fastify.withTypeProvider<ZodTypeProvider>();
   fastify.register(routes);
 };
 

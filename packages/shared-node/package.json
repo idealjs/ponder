@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
-    "@sinclair/typebox": "^0.25.21"
+    "fastify-type-provider-zod": "^1.1.8",
+    "zod-prisma-types": "^1.6.8"
   },
   "devDependencies": {
     "prisma": "^4.9.0",

@@ -2,16 +2,30 @@ import type { Prisma } from "@prisma/client";
 import { FastifyPluginAsync } from "fastify";
 import fp from "fastify-plugin";
 
+import {
+  <%= name %>CreateManyArgsSchema,
+  <%= name %>DeleteArgsSchema,
+  <%= name %>FindManyArgsSchema,
+  <%= name %>UpdateManyArgsSchema,
+  <%= name %>UpsertArgsSchema,
+} from "../zod";
+
 const routes: FastifyPluginAsync = async (fastify) => {
   fastify.get("/<%= name.toLowerCase() %>/findMany",
   {
+    schema: {
+      querystring: <%= name %>FindManyArgsSchema
+    },
   },
   async (req) => {
-    return fastify.prisma.<%= name.toLowerCase() %>.findMany(req.params as Prisma.<%= name %>FindManyArgs);
+    return fastify.prisma.<%= name.toLowerCase() %>.findMany(req.query as Prisma.<%= name %>FindManyArgs);
   });
   
   fastify.post("/<%= name.toLowerCase() %>/createMany",
   {
+    schema: {
+      body: <%= name %>CreateManyArgsSchema,
+    },
   },
   async (req) => {
     return fastify.prisma.<%= name.toLowerCase() %>.createMany(req.body as Prisma.<%= name %>CreateManyArgs);
@@ -19,6 +33,9 @@ const routes: FastifyPluginAsync = async (fastify) => {
   
   fastify.patch("/<%= name.toLowerCase() %>/updateMany",
   {
+    schema: {
+      body: <%= name %>UpdateManyArgsSchema,
+    },
   },
   async (req) => {
     return fastify.prisma.<%= name.toLowerCase() %>.updateMany(req.body as Prisma.<%= name %>UpdateManyArgs);
@@ -26,6 +43,9 @@ const routes: FastifyPluginAsync = async (fastify) => {
   
   fastify.put("/<%= name.toLowerCase() %>/upsert",
   {
+    schema: {
+      body: <%= name %>UpsertArgsSchema,
+    },
   },
   async (req) => {
     return fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
@@ -33,6 +53,9 @@ const routes: FastifyPluginAsync = async (fastify) => {
   
   fastify.delete("/<%= name.toLowerCase() %>/deleteMany",
   {
+    schema: {
+      body: <%= name %>DeleteArgsSchema,
+    },
   },
   async (req) => {
     return fastify.prisma.<%= name.toLowerCase() %>.deleteMany(req.body as Prisma.<%= name %>DeleteManyArgs);

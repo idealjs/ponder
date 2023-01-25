@@ -2,6 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../src/generated/zod"
+}
+
 generator node {
   provider = "ts-node ../generator-node/src/bin.ts"
   output   = "../src/generated"
