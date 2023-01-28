@@ -1,0 +1,57 @@
+import { Prisma } from "@prisma/client";
+import qs from "qs";
+import useSWR from "swr";
+
+import getHelper from "../../utils/getHelper";
+import postHelper from "../../utils/postHelper";
+
+export const use<%= name %>s = <Query extends Prisma.<%= name %>FindManyArgs>(
+  query: Query
+) => {
+  return useSWR<Array<Prisma.<%= name %>GetPayload<Query>>>(
+    "/<%= name.toLowerCase() %>/findMany<%= name %>",
+    (url) => getHelper(url, query)
+  );
+};
+
+export const createMany<%= name %> = <Args extends Prisma.<%= name %>CreateManyArgs>(
+  args: Args
+): Promise<Prisma.BatchPayload> => {
+  return postHelper("/<%= name.toLowerCase() %>/createMany<%= name %>", qs.stringify(args));
+};
+
+export const updateMany<%= name %> = <Args extends Prisma.<%= name %>UpdateManyArgs>(
+  args: Args
+): Promise<Prisma.BatchPayload> => {
+  return postHelper("/<%= name.toLowerCase() %>/updateMany<%= name %>", qs.stringify(args));
+};
+
+export const deleteMany<%= name %> = <Args extends Prisma.<%= name %>DeleteManyArgs>(
+  args: Args
+): Promise<Prisma.BatchPayload> => {
+  return postHelper("/<%= name.toLowerCase() %>/deleteMany<%= name %>", qs.stringify(args));
+};
+
+export const create<%= name %> = <Args extends Prisma.<%= name %>CreateArgs>(
+  args: Args
+): Promise<Prisma.<%= name %>GetPayload<Args>> => {
+  return postHelper("/<%= name.toLowerCase() %>/create<%= name %>", qs.stringify(args));
+};
+
+export const update<%= name %> = <Args extends Prisma.<%= name %>UpdateArgs>(
+  args: Args
+): Promise<Prisma.<%= name %>GetPayload<Args>> => {
+  return postHelper("/<%= name.toLowerCase() %>/update<%= name %>", qs.stringify(args));
+};
+
+export const upsert<%= name %> = <Args extends Prisma.<%= name %>UpsertArgs>(
+  args: Args
+): Promise<Prisma.<%= name %>GetPayload<Args>> => {
+  return postHelper("/<%= name.toLowerCase() %>/upsert<%= name %>", qs.stringify(args));
+};
+
+export const delete<%= name %> = <Args extends Prisma.<%= name %>DeleteArgs>(
+  args: Args
+): Promise<Prisma.<%= name %>GetPayload<Args>> => {
+  return postHelper("/<%= name.toLowerCase() %>/delete<%= name %>", qs.stringify(args));
+};

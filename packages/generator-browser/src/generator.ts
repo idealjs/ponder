@@ -1,7 +1,10 @@
 import { generatorHandler, GeneratorOptions } from "@prisma/generator-helper";
 import { logger } from "@prisma/internals";
+import path from "path";
 
 import { GENERATOR_NAME } from "./constants";
+import genSWRHelper from "./helpers/genSWRHelper";
+import { writeFileSafely } from "./utils/writeFileSafely";
 
 generatorHandler({
   onManifest() {
@@ -12,6 +15,14 @@ generatorHandler({
     };
   },
   onGenerate: async (options: GeneratorOptions) => {
-    options.dmmf.datamodel.models.forEach(async (info) => {});
+    options.dmmf.datamodel.models.forEach(async (info) => {
+      const content = await genSWRHelper(info);
+      const writeLocation = path.join(
+        options.generator.output?.value!,
+        `swr/${info.name}.ts`
+      );
+
+      await writeFileSafely(writeLocation, content);
+    });
   },
 });

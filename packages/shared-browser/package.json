@@ -7,7 +7,10 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
-  "dependencies": {},
+  "dependencies": {
+    "qs": "^6.11.0",
+    "swr": "^2.0.2"
+  },
   "devDependencies": {
     "vitest": "^0.27.1"
   }
