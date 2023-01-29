@@ -5,7 +5,7 @@ import useSWR from "swr";
 import getHelper from "../../utils/getHelper";
 import postHelper from "../../utils/postHelper";
 
-export const useFindMany<%= name %> = <Query extends Prisma.<%= name %>FindManyArgs>(
+export const use<%= name %>Swr = <Query extends Prisma.<%= name %>FindManyArgs>(
   query?: Query,
   base: string = window.location.origin
 ) => {

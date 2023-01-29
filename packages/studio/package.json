@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.14",
     "@idealjs/ponder-shared-browser": "^0.1.0",
     "@idealjs/ponder-shared-node": "^0.1.0",
+    "clsx": "^1.2.1",
     "daisyui": "^2.46.1",
     "i18next": "^22.4.9",
+    "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.1.4",

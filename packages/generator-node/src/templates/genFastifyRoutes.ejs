@@ -3,9 +3,11 @@ import { FastifyPluginAsync } from "fastify";
 import fp from "fastify-plugin";
 
 import {
+  <%= name %>CreateArgsSchema,
   <%= name %>CreateManyArgsSchema,
   <%= name %>DeleteArgsSchema,
   <%= name %>FindManyArgsSchema,
+  <%= name %>UpdateArgsSchema,
   <%= name %>UpdateManyArgsSchema,
   <%= name %>UpsertArgsSchema,
 } from "../zod";
@@ -71,7 +73,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
     "/<%= name.toLowerCase() %>/create",
     {
       schema: {
-        body: <%= name %>CreateManyArgsSchema,
+        body: <%= name %>CreateArgsSchema,
       },
     },
     async (req) => {
@@ -83,7 +85,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
     "/<%= name.toLowerCase() %>/update",
     {
       schema: {
-        body: <%= name %>UpdateManyArgsSchema,
+        body: <%= name %>UpdateArgsSchema,
       },
     },
     async (req) => {
