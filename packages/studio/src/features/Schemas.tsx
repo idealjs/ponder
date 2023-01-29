@@ -3,7 +3,7 @@ import { useSchemas, useSetSelectedSchemaId } from "../store";
 const Schemas = () => {
   const setSelectedSchemaId = useSetSelectedSchemaId();
   const schemas = useSchemas();
-
+  
   return (
     <div>
       <div className="overflow-x-auto">

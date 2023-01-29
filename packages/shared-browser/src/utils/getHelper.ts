@@ -1,8 +1,9 @@
-import qs from "qs";
-
-const getHelper = <Query>(url: string, query: Query) =>
-  fetch(new URL(`${url}?${qs.stringify(query)}`).toString()).then((res) =>
-    res.json()
-  );
+const getHelper = (url: string, query: string) =>
+  fetch(new URL(`${url}?${query}`).toString()).then(async (res) => {
+    if (!res.ok) {
+      throw await res.json();
+    }
+    return res.json();
+  });
 
 export default getHelper;

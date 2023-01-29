@@ -5,53 +5,68 @@ import useSWR from "swr";
 import getHelper from "../../utils/getHelper";
 import postHelper from "../../utils/postHelper";
 
-export const use<%= name %>s = <Query extends Prisma.<%= name %>FindManyArgs>(
-  query: Query
+export const useFindMany<%= name %> = <Query extends Prisma.<%= name %>FindManyArgs>(
+  query?: Query,
+  base: string = window.location.origin
 ) => {
-  return useSWR<Array<Prisma.<%= name %>GetPayload<Query>>>(
-    "/<%= name.toLowerCase() %>/findMany<%= name %>",
-    (url) => getHelper(url, qs.stringify(query))
+  const url = new URL("/<%= name.toLowerCase() %>/findMany", base).toString();
+  return useSWR<Array<Prisma.<%= name %>GetPayload<Query>>>(url, (url) =>
+    getHelper(url, qs.stringify(query))
   );
 };
 
 export const createMany<%= name %> = <Args extends Prisma.<%= name %>CreateManyArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.BatchPayload> => {
-  return postHelper("/<%= name.toLowerCase() %>/createMany<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/createMany", base).toString();
+  return postHelper(url, args);
 };
 
 export const updateMany<%= name %> = <Args extends Prisma.<%= name %>UpdateManyArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.BatchPayload> => {
-  return postHelper("/<%= name.toLowerCase() %>/updateMany<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/updateMany", base).toString();
+  return postHelper(url, args);
 };
 
 export const deleteMany<%= name %> = <Args extends Prisma.<%= name %>DeleteManyArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.BatchPayload> => {
-  return postHelper("/<%= name.toLowerCase() %>/deleteMany<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/deleteMany", base).toString();
+  return postHelper(url, args);
 };
 
 export const create<%= name %> = <Args extends Prisma.<%= name %>CreateArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.<%= name %>GetPayload<Args>> => {
-  return postHelper("/<%= name.toLowerCase() %>/create<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/create", base).toString();
+  return postHelper(url, args);
 };
 
 export const update<%= name %> = <Args extends Prisma.<%= name %>UpdateArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.<%= name %>GetPayload<Args>> => {
-  return postHelper("/<%= name.toLowerCase() %>/update<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/update", base).toString();
+  return postHelper(url, args);
 };
 
 export const upsert<%= name %> = <Args extends Prisma.<%= name %>UpsertArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.<%= name %>GetPayload<Args>> => {
-  return postHelper("/<%= name.toLowerCase() %>/upsert<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/upsert", base).toString();
+  return postHelper(url, args);
 };
 
 export const delete<%= name %> = <Args extends Prisma.<%= name %>DeleteArgs>(
-  args: Args
+  args: Args,
+  base: string = window.location.origin
 ): Promise<Prisma.<%= name %>GetPayload<Args>> => {
-  return postHelper("/<%= name.toLowerCase() %>/delete<%= name %>", args);
+  const url = new URL("/<%= name.toLowerCase() %>/delete", base).toString();
+  return postHelper(url, args);
 };

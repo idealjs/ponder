@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@idealjs/ponder-shared-browser": "^0.1.0",
     "@idealjs/ponder-shared-node": "^0.1.0",
-    "@tanstack/react-query": "^4.22.0",
     "daisyui": "^2.46.1",
     "i18next": "^22.4.9",
     "react": "^18.2.0",

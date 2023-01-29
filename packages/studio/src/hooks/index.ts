@@ -1,11 +1,13 @@
-import type { Prisma } from "@idealjs/ponder-shared-node";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useFindManySchema } from "@idealjs/ponder-shared-browser";
+import { useContext, useEffect } from "react";
 
-import { useSetSchemas } from "../store";
+import { BackendBaseUrlContext, useSetSchemas } from "../store";
+
+export const useBackendBaseURL = () => {
+  return useContext(BackendBaseUrlContext);
+};
 
 const query = {
-  where: {},
   include: {
     states: true,
     transitions: true,
@@ -13,23 +15,13 @@ const query = {
   },
 };
 
-type Schema = Prisma.SchemaGetPayload<typeof query>;
-
 export const useQuerySchemas = () => {
   const setSchemas = useSetSchemas();
-  action.useActionQuery();
-  // useEffect(() => {
-  //   setSchemas(result.data);
-  // }, [result.data, setSchemas]);
-};
-
-export const action = {
-  useActionQuery: (query?: Prisma.ActionFindManyArgs) => {
-    return useQuery({
-      queryKey: ["action", query],
-    });
-  },
-  useActionMutate: () => {
-    useMutation({});
-  },
+  const backendBaseURL = useBackendBaseURL();
+  const { data, error } = useFindManySchema(query, backendBaseURL);
+  useEffect(() => {
+    if (!error) {
+      setSchemas(data);
+    }
+  }, [data, error, setSchemas]);
 };
