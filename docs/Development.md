@@ -6,7 +6,7 @@
 
 ```
 cp packages/service/dev.env packages/service/.env
-cp packages/service-trpc/dev.env packages/service-trpc/.env
+cp packages/service-generated/dev.env packages/service-generated/.env
 cp packages/shared-node/dev.env packages/shared-node/.env
 ```
 
