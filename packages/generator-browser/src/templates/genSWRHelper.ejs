@@ -10,9 +10,11 @@ export const use<%= name %>Swr = <Query extends Prisma.<%= name %>FindManyArgs>(
   base: string = window.location.origin
 ) => {
   const url = new URL("/<%= name.toLowerCase() %>/findMany", base).toString();
-  return useSWR<Array<Prisma.<%= name %>GetPayload<Query>>>(url, (url) =>
-    getHelper(url, qs.stringify(query))
-  );
+  return useSWR<
+    Array<Prisma.<%= name %>GetPayload<Query>>,
+    any,
+    [string, Query | undefined]
+  >([url, query], ([url, query]) => getHelper(url, qs.stringify(query)));
 };
 
 export const createMany<%= name %> = <Args extends Prisma.<%= name %>CreateManyArgs>(

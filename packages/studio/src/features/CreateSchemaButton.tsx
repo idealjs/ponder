@@ -10,9 +10,19 @@ interface IProps {
   className?: string;
 }
 
+const query = {
+  include: {
+    states: true,
+    transitions: true,
+    actions: true,
+  },
+};
+
 const CreateSchemaButton = (props: IProps) => {
   const { className } = props;
-  const { mutate } = useSchemaSwr();
+  const backendBaseURL = useBackendBaseURL();
+
+  const { mutate } = useSchemaSwr(query, backendBaseURL);
   const baseURL = useBackendBaseURL();
   const onClick = useCallback(async () => {
     const newSchema = {
@@ -21,6 +31,7 @@ const CreateSchemaButton = (props: IProps) => {
     mutate([
       await createSchema(
         {
+          ...query,
           data: newSchema,
         },
         baseURL
