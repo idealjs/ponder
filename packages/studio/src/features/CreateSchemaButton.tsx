@@ -1,10 +1,14 @@
 import { PlusIcon } from "@heroicons/react/24/solid";
-import { createSchema, useSchemaSwr } from "@idealjs/ponder-shared-browser";
+import {
+  useSWRCreateSchema,
+  useSwrManySchema,
+} from "@idealjs/ponder-shared-browser";
 import clsx from "clsx";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
 
 import { useBackendBaseURL } from "../hooks";
+import { useSetSelectedSchemaId } from "../store";
 
 interface IProps {
   className?: string;
@@ -22,23 +26,24 @@ const CreateSchemaButton = (props: IProps) => {
   const { className } = props;
   const backendBaseURL = useBackendBaseURL();
 
-  const { mutate, data } = useSchemaSwr(query, backendBaseURL);
-  const baseURL = useBackendBaseURL();
+  const { trigger } = useSWRCreateSchema(backendBaseURL);
+  const { mutate } = useSwrManySchema(query, backendBaseURL);
+  const setSelectedSchemaId = useSetSelectedSchemaId();
+
   const onClick = useCallback(async () => {
     const newSchema = {
       id: nanoid(),
     };
-    mutate([
-      ...(data ?? []),
-      await createSchema(
-        {
-          ...query,
-          data: newSchema,
-        },
-        baseURL
-      ),
-    ]);
-  }, [baseURL, data, mutate]);
+
+    await trigger({
+      ...query,
+      data: newSchema,
+    });
+
+    await mutate();
+
+    setSelectedSchemaId(newSchema.id);
+  }, [mutate, setSelectedSchemaId, trigger]);
 
   return (
     <div className={clsx("tooltip", className)} data-tip="Create New Schema">

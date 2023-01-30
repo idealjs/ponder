@@ -1,4 +1,4 @@
-import { useSchemaSwr } from "@idealjs/ponder-shared-browser";
+import { useSwrManySchema } from "@idealjs/ponder-shared-browser";
 import { useContext, useEffect } from "react";
 
 import { BackendBaseUrlContext, useSetSchemas } from "../store";
@@ -18,7 +18,7 @@ const query = {
 export const useQuerySchemas = () => {
   const setSchemas = useSetSchemas();
   const backendBaseURL = useBackendBaseURL();
-  const { data, error } = useSchemaSwr(query, backendBaseURL);
+  const { data, error } = useSwrManySchema(query, backendBaseURL);
   useEffect(() => {
     if (!error) {
       setSchemas(data);

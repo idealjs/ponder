@@ -1,17 +1,42 @@
 import { Prisma } from "@prisma/client";
 import qs from "qs";
 import useSWR from "swr";
+import useSwrMutation from "swr/mutation";
 
 import getHelper from "../../utils/getHelper";
 import postHelper from "../../utils/postHelper";
 
-export const use<%= name %>Swr = <Query extends Prisma.<%= name %>FindManyArgs>(
+export const useSwrMany<%= name %> = <Query extends Prisma.<%= name %>FindManyArgs>(
   query?: Query,
   base: string = window.location.origin
 ) => {
   const url = new URL("/<%= name.toLowerCase() %>/findMany", base).toString();
   return useSWR<
     Array<Prisma.<%= name %>GetPayload<Query>>,
+    any,
+    [string, Query | undefined]
+  >([url, query], ([url, query]) => getHelper(url, qs.stringify(query)));
+};
+
+export const useSwrFirst<%= name %> = <Query extends Prisma.<%= name %>FindFirstArgs>(
+  query?: Query,
+  base: string = window.location.origin
+) => {
+  const url = new URL("/<%= name.toLowerCase() %>/findFirst", base).toString();
+  return useSWR<
+    Prisma.<%= name %>GetPayload<Query>,
+    any,
+    [string, Query | undefined]
+  >([url, query], ([url, query]) => getHelper(url, qs.stringify(query)));
+};
+
+export const useSwrUnique<%= name %> = <Query extends Prisma.<%= name %>FindUniqueArgs>(
+  query?: Query,
+  base: string = window.location.origin
+) => {
+  const url = new URL("/<%= name.toLowerCase() %>/findUnique", base).toString();
+  return useSWR<
+    Prisma.<%= name %>GetPayload<Query>,
     any,
     [string, Query | undefined]
   >([url, query], ([url, query]) => getHelper(url, qs.stringify(query)));
@@ -71,4 +96,44 @@ export const delete<%= name %> = <Args extends Prisma.<%= name %>DeleteArgs>(
 ): Promise<Prisma.<%= name %>GetPayload<Args>> => {
   const url = new URL("/<%= name.toLowerCase() %>/delete", base).toString();
   return postHelper(url, args);
+};
+
+export const useSWRCreate<%= name %> = <Args extends Prisma.<%= name %>CreateArgs>(
+  base: string = window.location.origin
+) => {
+  const url = new URL("/<%= name.toLowerCase() %>", base).toString();
+  return useSwrMutation<Prisma.<%= name %>GetPayload<Args>, any, string, Args>(
+    url,
+    (url, args) => create<%= name %>(args.arg, url)
+  );
+};
+
+export const useSWRUpdate<%= name %> = <Args extends Prisma.<%= name %>UpdateArgs>(
+  base: string = window.location.origin
+) => {
+  const url = new URL("/<%= name.toLowerCase() %>", base).toString();
+  return useSwrMutation<Prisma.<%= name %>GetPayload<Args>, any, string, Args>(
+    url,
+    (url, args) => update<%= name %>(args.arg, url)
+  );
+};
+
+export const useSWRUpsert<%= name %> = <Args extends Prisma.<%= name %>UpsertArgs>(
+  base: string = window.location.origin
+) => {
+  const url = new URL("/<%= name.toLowerCase() %>", base).toString();
+  return useSwrMutation<Prisma.<%= name %>GetPayload<Args>, any, string, Args>(
+    url,
+    (url, args) => upsert<%= name %>(args.arg, url)
+  );
+};
+
+export const useSWRDelete<%= name %> = <Args extends Prisma.<%= name %>DeleteArgs>(
+  base: string = window.location.origin
+) => {
+  const url = new URL("/<%= name.toLowerCase() %>", base).toString();
+  return useSwrMutation<Prisma.<%= name %>GetPayload<Args>, any, string, Args>(
+    url,
+    (url, args) => delete<%= name %>(args.arg, url)
+  );
 };

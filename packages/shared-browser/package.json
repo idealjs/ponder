@@ -12,6 +12,12 @@
     "swr": "^2.0.2"
   },
   "devDependencies": {
+    "react": "^18.2.0",
+    "swr": "^2.0.3",
     "vitest": "^0.27.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "swr": "^2.0.3"
   }
 }
