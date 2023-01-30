@@ -22,13 +22,14 @@ const CreateSchemaButton = (props: IProps) => {
   const { className } = props;
   const backendBaseURL = useBackendBaseURL();
 
-  const { mutate } = useSchemaSwr(query, backendBaseURL);
+  const { mutate, data } = useSchemaSwr(query, backendBaseURL);
   const baseURL = useBackendBaseURL();
   const onClick = useCallback(async () => {
     const newSchema = {
       id: nanoid(),
     };
     mutate([
+      ...(data ?? []),
       await createSchema(
         {
           ...query,
@@ -37,7 +38,7 @@ const CreateSchemaButton = (props: IProps) => {
         baseURL
       ),
     ]);
-  }, [baseURL, mutate]);
+  }, [baseURL, data, mutate]);
 
   return (
     <div className={clsx("tooltip", className)} data-tip="Create New Schema">
