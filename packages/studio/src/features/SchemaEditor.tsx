@@ -9,14 +9,12 @@ import ReactFlow, {
   useNodesState,
 } from "reactflow";
 
-import { useBackendBaseURL } from "../hooks";
 import { useStateNodes, useTransitionEdges } from "../store";
 
 const SchemaEditor = () => {
   const stateNodes = useStateNodes();
   const transitionEdges = useTransitionEdges();
-  const backendBaseURL = useBackendBaseURL();
-  const { trigger } = useSWRUpdateState(backendBaseURL);
+  const { trigger } = useSWRUpdateState();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);

@@ -1,11 +1,11 @@
 import "./index.css";
 
+import { BackendBaseURLProvider } from "@idealjs/ponder-shared-browser";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { I18nextProvider } from "react-i18next";
 
 import App from "./App";
-import BackendBaseURLProvider from "./features/BackendBaseURLProvider";
 import i18n from "./i18n";
 
 const root = ReactDOM.createRoot(

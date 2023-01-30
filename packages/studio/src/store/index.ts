@@ -4,13 +4,9 @@ import type {
   State,
   Transition,
 } from "@idealjs/ponder-shared-node";
-import { createContext, useCallback } from "react";
+import { useCallback } from "react";
 import { proxy, useSnapshot } from "valtio";
 import { derive } from "valtio/utils";
-
-export const BackendBaseUrlContext = createContext<string | undefined>(
-  undefined
-);
 
 const selected = proxy<Partial<{ schemaId: string; stateId: string }>>({});
 

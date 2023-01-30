@@ -7,7 +7,6 @@ import clsx from "clsx";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
 
-import { useBackendBaseURL } from "../hooks";
 import { useSetSelectedSchemaId } from "../store";
 
 interface IProps {
@@ -24,10 +23,9 @@ const query = {
 
 const CreateSchemaButton = (props: IProps) => {
   const { className } = props;
-  const backendBaseURL = useBackendBaseURL();
 
-  const { trigger } = useSWRCreateSchema(backendBaseURL);
-  const { mutate } = useSwrManySchema(query, backendBaseURL);
+  const { trigger } = useSWRCreateSchema();
+  const { mutate } = useSwrManySchema(query);
   const setSelectedSchemaId = useSetSelectedSchemaId();
 
   const onClick = useCallback(async () => {

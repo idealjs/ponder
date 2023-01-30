@@ -1,10 +1,12 @@
-import { PropsWithChildren } from "react";
-
-import { BackendBaseUrlContext } from "../store";
+import { createContext, PropsWithChildren, useContext } from "react";
 
 interface IProps {
   value: string;
 }
+
+export const BackendBaseUrlContext = createContext<string | undefined>(
+  undefined
+);
 
 const BackendBaseURLProvider = (props: PropsWithChildren<IProps>) => {
   const { children, value } = props;
@@ -16,3 +18,7 @@ const BackendBaseURLProvider = (props: PropsWithChildren<IProps>) => {
 };
 
 export default BackendBaseURLProvider;
+
+export const useBackendBaseURL = () => {
+  return useContext(BackendBaseUrlContext);
+};
