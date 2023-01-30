@@ -1,6 +1,7 @@
 import "reactflow/dist/style.css";
 
 import { useSWRUpdateState } from "@idealjs/ponder-shared-browser";
+import { useEffect } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -10,6 +11,7 @@ import ReactFlow, {
 } from "reactflow";
 
 import { useStateNodes, useTransitionEdges } from "../store";
+import EditorMenu from "./EditorMenu";
 
 const SchemaEditor = () => {
   const stateNodes = useStateNodes();
@@ -19,8 +21,12 @@ const SchemaEditor = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);
 
+  useEffect(() => {
+    setNodes(stateNodes);
+  }, [setNodes, stateNodes]);
+
   return (
-    <div style={{ height: "100%" }}>
+    <div className="relative h-full overflow-hidden">
       <ReactFlowProvider>
         <ReactFlow
           nodes={nodes}
@@ -43,6 +49,7 @@ const SchemaEditor = () => {
           <Controls />
         </ReactFlow>
       </ReactFlowProvider>
+      <EditorMenu className="absolute top-6 right-6" />
     </div>
   );
 };

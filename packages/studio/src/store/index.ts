@@ -146,6 +146,10 @@ export const useSetSelectedSchemaId = () => {
   }, []);
 };
 
+export const useSelectedSchemaId = () => {
+  return useSnapshot(selected).schemaId;
+};
+
 export const useSelectedSchema = () => {
   return useSnapshot(drivedData).selectedSchema;
 };

@@ -1,12 +1,11 @@
-import { PlusIcon } from "@heroicons/react/24/solid";
 import {
   useSWRCreateSchema,
   useSwrManySchema,
 } from "@idealjs/ponder-shared-browser";
-import clsx from "clsx";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
 
+import CreateButton from "../components/CreateButton";
 import { useSetSelectedSchemaId } from "../store";
 
 interface IProps {
@@ -44,11 +43,11 @@ const CreateSchemaButton = (props: IProps) => {
   }, [mutate, setSelectedSchemaId, trigger]);
 
   return (
-    <div className={clsx("tooltip", className)} data-tip="Create New Schema">
-      <button className="btn btn-circle btn-outline" onClick={onClick}>
-        <PlusIcon />
-      </button>
-    </div>
+    <CreateButton
+      className={className}
+      onClick={onClick}
+      tooltip="Create New Schema"
+    />
   );
 };
 
