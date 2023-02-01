@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/commands": "^6.2.0",
+    "@codemirror/state": "^6.2.0",
+    "@codemirror/view": "^6.7.3",
     "@heroicons/react": "^2.0.14",
     "@idealjs/ponder-shared-browser": "^0.1.0",
     "@idealjs/ponder-shared-node": "^0.1.0",
