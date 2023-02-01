@@ -160,8 +160,12 @@ export const useSetSelectedStateId = () => {
   }, []);
 };
 
-export const useSelectedState = () => {
+export const useSelectedStateId = () => {
   return useSnapshot(selected).stateId;
+};
+
+export const useSelectedState = () => {
+  return useSnapshot(drivedData).selectedState;
 };
 
 export const useStateNodes = () => {

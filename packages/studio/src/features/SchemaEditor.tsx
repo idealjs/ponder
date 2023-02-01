@@ -10,20 +10,37 @@ import ReactFlow, {
   useNodesState,
 } from "reactflow";
 
-import { useStateNodes, useTransitionEdges } from "../store";
+import {
+  useSelectedStateId,
+  useSetSelectedStateId,
+  useStateNodes,
+  useTransitionEdges,
+} from "../store";
 import EditorMenu from "./EditorMenu";
 
 const SchemaEditor = () => {
   const stateNodes = useStateNodes();
   const transitionEdges = useTransitionEdges();
   const { trigger } = useSWRUpdateState();
+  const setSelectedStateId = useSetSelectedStateId();
+  const selectedStateId = useSelectedStateId();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);
 
   useEffect(() => {
-    setNodes(stateNodes);
-  }, [setNodes, stateNodes]);
+    setNodes(
+      stateNodes.map((node) => {
+        if (node.id === selectedStateId) {
+          return {
+            ...node,
+            selected: true,
+          };
+        }
+        return node;
+      })
+    );
+  }, [selectedStateId, setNodes, stateNodes]);
 
   return (
     <div className="relative h-full overflow-hidden">
@@ -33,6 +50,9 @@ const SchemaEditor = () => {
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
+          onNodeClick={(_, node) => {
+            setSelectedStateId(node.id);
+          }}
           onNodeDragStop={(_, node) => {
             trigger({
               where: {
