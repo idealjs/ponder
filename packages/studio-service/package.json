@@ -1,5 +1,5 @@
 {
-  "name": "@idealjs/ponder-service-generated",
+  "name": "@idealjs/ponder-studio-service",
   "version": "0.1.0",
   "private": true,
   "type": "module",
