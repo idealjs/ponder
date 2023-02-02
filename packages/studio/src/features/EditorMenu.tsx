@@ -1,3 +1,4 @@
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import {
   useSWRCreateState,
   useSwrManySchema,
@@ -44,14 +45,22 @@ const EditorMenu = (props: IProps) => {
   }, [mutate, selectedSchemaId, setSelectedStateId, trigger]);
 
   return (
-    <div className={clsx("dropdown", className)}>
-      <label tabIndex={0} className="btn m-2 w-24">
-        Menu
+    <ul tabIndex={0} className={clsx("menu m-2 w-14", className)}>
+      <CreateButton
+        className="tooltip-left"
+        onClick={onCreateNewState}
+        tooltip="Create New State"
+      />
+      <label
+        htmlFor="info-drawer"
+        className="tooltip tooltip-left drawer-button"
+        data-tip={"State Info"}
+      >
+        <div className="btn btn-circle btn-outline border-0">
+          <InformationCircleIcon />
+        </div>
       </label>
-      <ul tabIndex={0} className="dropdown-content menu m-2 w-24">
-        <CreateButton onClick={onCreateNewState} tooltip="Create New State" />
-      </ul>
-    </div>
+    </ul>
   );
 };
 
