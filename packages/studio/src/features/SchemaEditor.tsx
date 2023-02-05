@@ -41,6 +41,7 @@ const SchemaEditor = () => {
   const { trigger } = useSWRUpdateState();
 
   const selectedStateId = useSelectedStateId();
+  const setSelectedStateId = useSetSelectedStateId();
   const { mutate } = useSwrManySchema(query);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
@@ -72,6 +73,9 @@ const SchemaEditor = () => {
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
               nodeTypes={nodeTypes}
+              onNodeClick={(_, node) => {
+                node?.id && setSelectedStateId(node.id);
+              }}
               onNodeDragStop={async (_, node) => {
                 await trigger({
                   where: {

@@ -79,10 +79,34 @@ const StateNode = () => {
           }}
         />
       ) : (
-        <Fragment>
-          <Handle type="source" position={Position.Right} id={"success"} />
-          <Handle type="source" position={Position.Right} id={"faild"} />
-        </Fragment>
+        <div className="flex flex-col justify-around">
+          <Handle
+            className="box-content"
+            style={{
+              top: "16px",
+              right: "-6px",
+              height: "12px",
+              width: "12px",
+              backgroundColor: "green",
+            }}
+            type="source"
+            position={Position.Right}
+            id={"success"}
+          />
+          <Handle
+            className="box-content"
+            style={{
+              top: "53px",
+              right: "-6px",
+              height: "12px",
+              width: "12px",
+              backgroundColor: "red",
+            }}
+            type="source"
+            position={Position.Right}
+            id={"faild"}
+          />
+        </div>
       )}
     </div>
   );
