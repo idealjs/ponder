@@ -62,7 +62,7 @@ const StateNode = () => {
         }}
         type="target"
         position={Position.Left}
-        id={node?.id}
+        id={nodeId?.toString()}
       />
 
       {node?.data.transitionId == null ? (
@@ -102,7 +102,7 @@ const StateNode = () => {
             }}
             type="source"
             position={Position.Right}
-            id={"success_" + node.id}
+            id={"success"}
           />
           <Handle
             className="box-content"
@@ -115,7 +115,7 @@ const StateNode = () => {
             }}
             type="source"
             position={Position.Right}
-            id={"faild_" + node.id}
+            id={"faild"}
           />
         </div>
       )}

@@ -37,6 +37,7 @@ const nodeTypes = {
 
 const SchemaEditor = () => {
   const stateNodes = useStateNodes();
+
   const transitionEdges = useTransitionEdges();
   const { trigger } = useSWRUpdateState();
 
@@ -60,6 +61,10 @@ const SchemaEditor = () => {
       })
     );
   }, [selectedStateId, setNodes, stateNodes]);
+
+  useEffect(() => {
+    setEdges(transitionEdges);
+  }, [setEdges, transitionEdges]);
 
   return (
     <div className="relative h-full overflow-hidden">

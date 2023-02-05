@@ -69,21 +69,32 @@ const drivedData = derive({
     return selectedSchema?.transitions.flatMap((transition) => {
       if (
         transition.startFromStateId == null ||
-        (transition.faildToStateId == null && transition.successToStateId)
+        (transition.faildToStateId == null &&
+          transition.successToStateId == null)
       ) {
         return [];
       }
 
       const faildLine = {
-        id: transition.startFromStateId + transition.faildToStateId,
-        source: "faild_" + transition.startFromStateId,
+        id:
+          "faild-" +
+          transition.startFromStateId +
+          "-" +
+          transition.faildToStateId,
+        source: transition.startFromStateId,
         target: transition.faildToStateId,
+        sourceHandle: "faild",
       };
 
       const successLine = {
-        id: transition.startFromStateId + transition.successToStateId,
-        source: "source_" + transition.startFromStateId,
+        id:
+          "success-" +
+          transition.startFromStateId +
+          "-" +
+          transition.successToStateId,
+        source: transition.startFromStateId,
         target: transition.successToStateId,
+        sourceHandle: "success",
       };
 
       let lines: {
@@ -92,19 +103,8 @@ const drivedData = derive({
         target: string;
       }[] = [];
 
-      if (
-        transition.faildToStateId != null &&
-        transition.successToStateId != null
-      ) {
-        lines = [faildLine, successLine] as {
-          id: string;
-          source: string;
-          target: string;
-        }[];
-      }
-
       if (transition.faildToStateId != null) {
-        lines = [faildLine] as {
+        return [faildLine] as {
           id: string;
           source: string;
           target: string;
@@ -112,12 +112,24 @@ const drivedData = derive({
       }
 
       if (transition.successToStateId != null) {
-        lines = [successLine] as {
+        return [successLine] as {
           id: string;
           source: string;
           target: string;
         }[];
       }
+
+      if (
+        transition.faildToStateId != null &&
+        transition.successToStateId != null
+      ) {
+        return [faildLine, successLine] as {
+          id: string;
+          source: string;
+          target: string;
+        }[];
+      }
+
       return lines;
     });
   },
