@@ -44,7 +44,6 @@ const SchemaEditor = () => {
   const selectedStateId = useSelectedStateId();
   const setSelectedStateId = useSetSelectedStateId();
   const { mutate } = useSwrManySchema(query);
-
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);
 
@@ -91,6 +90,29 @@ const SchemaEditor = () => {
                     positionY: node.position.y,
                   },
                 });
+                await mutate();
+              }}
+              onConnect={async (connection) => {
+                await trigger({
+                  data: {
+                    transition: {
+                      update: {
+                        successToStateId:
+                          connection.sourceHandle === "success"
+                            ? connection.target
+                            : undefined,
+                        faildToStateId:
+                          connection.sourceHandle === "faild"
+                            ? connection.target
+                            : undefined,
+                      },
+                    },
+                  },
+                  where: {
+                    id: connection.source ?? undefined,
+                  },
+                });
+
                 await mutate();
               }}
             >

@@ -76,22 +76,14 @@ const drivedData = derive({
       }
 
       const faildLine = {
-        id:
-          "faild-" +
-          transition.startFromStateId +
-          "-" +
-          transition.faildToStateId,
+        id: "faild-" + transition.id,
         source: transition.startFromStateId,
         target: transition.faildToStateId,
         sourceHandle: "faild",
       };
 
       const successLine = {
-        id:
-          "success-" +
-          transition.startFromStateId +
-          "-" +
-          transition.successToStateId,
+        id: "success-" + transition.id,
         source: transition.startFromStateId,
         target: transition.successToStateId,
         sourceHandle: "success",
@@ -103,6 +95,17 @@ const drivedData = derive({
         target: string;
       }[] = [];
 
+      if (
+        transition.faildToStateId != null &&
+        transition.successToStateId != null
+      ) {
+        return [faildLine, successLine] as {
+          id: string;
+          source: string;
+          target: string;
+        }[];
+      }
+
       if (transition.faildToStateId != null) {
         return [faildLine] as {
           id: string;
@@ -113,17 +116,6 @@ const drivedData = derive({
 
       if (transition.successToStateId != null) {
         return [successLine] as {
-          id: string;
-          source: string;
-          target: string;
-        }[];
-      }
-
-      if (
-        transition.faildToStateId != null &&
-        transition.successToStateId != null
-      ) {
-        return [faildLine, successLine] as {
           id: string;
           source: string;
           target: string;
