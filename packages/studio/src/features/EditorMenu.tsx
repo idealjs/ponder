@@ -51,15 +51,6 @@ const EditorMenu = (props: IProps) => {
         onClick={onCreateNewState}
         tooltip="Create New State"
       />
-      <label
-        htmlFor="info-drawer"
-        className="tooltip tooltip-left drawer-button"
-        data-tip={"State Info"}
-      >
-        <div className="btn btn-circle btn-outline border-0">
-          <InformationCircleIcon />
-        </div>
-      </label>
     </ul>
   );
 };

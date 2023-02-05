@@ -20,6 +20,8 @@ import {
   useTransitionEdges,
 } from "../store";
 import EditorMenu from "./EditorMenu";
+import InfoDrawer from "./InfoDrawer";
+import StateNode from "./StateNode";
 
 const query = {
   include: {
@@ -29,12 +31,15 @@ const query = {
   },
 };
 
+const nodeTypes = {
+  stateNode: StateNode,
+};
+
 const SchemaEditor = () => {
   const stateNodes = useStateNodes();
   const transitionEdges = useTransitionEdges();
   const { trigger } = useSWRUpdateState();
 
-  const setSelectedStateId = useSetSelectedStateId();
   const selectedStateId = useSelectedStateId();
   const { mutate } = useSwrManySchema(query);
 
@@ -66,9 +71,7 @@ const SchemaEditor = () => {
               edges={edges}
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
-              onNodeClick={(_, node) => {
-                setSelectedStateId(node.id);
-              }}
+              nodeTypes={nodeTypes}
               onNodeDragStop={async (_, node) => {
                 await trigger({
                   where: {
@@ -90,7 +93,7 @@ const SchemaEditor = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="info-drawer" className="drawer-overlay"></label>
-          <div className={"p-4 w-3/5 bg-base-100 text-base-content"}></div>
+          <InfoDrawer />
         </div>
       </div>
     </div>

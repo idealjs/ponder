@@ -31,7 +31,7 @@ model Schema {
 
 model State {
   id           String   @id @unique
-  Schema       Schema?  @relation(fields: [schemaId], references: [id])
+  schema       Schema?  @relation(fields: [schemaId], references: [id])
   schemaId     String?
   isStartState Boolean?
 
@@ -41,15 +41,14 @@ model State {
   positionX Int?
   positionY Int?
 
-  transitionId String?
-  Transition   Transition? @relation("startStateOnTransition")
+  transition Transition? @relation("startStateOnTransition")
 }
 
 model Transition {
   id String @id @unique
 
-  startFromState   State?  @relation("startStateOnTransition", fields: [startFromStateId], references: [id])
-  startFromStateId String? @unique
+  startFromStateId String @unique
+  startFromState   State? @relation("startStateOnTransition", fields: [startFromStateId], references: [id])
 
   faildToState   State?  @relation("faildToStateOnTransition", fields: [faildToStateId], references: [id])
   faildToStateId String?
@@ -59,12 +58,12 @@ model Transition {
 
   action   Action?  @relation(fields: [actionId], references: [id])
   actionId String?
-  Schema   Schema[]
+  schema   Schema[]
 }
 
 model Action {
   id       String  @id @unique
-  Schema   Schema? @relation(fields: [schemaId], references: [id])
+  schema   Schema? @relation(fields: [schemaId], references: [id])
   schemaId String?
 
   url         String?

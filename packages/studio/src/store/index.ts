@@ -14,7 +14,7 @@ const data = proxy<
   Partial<{
     schemas:
       | (Schema & {
-          states: State[];
+          states: (State & { transitionId?: string })[];
           transitions: Transition[];
           actions: Action[];
         })[]
@@ -47,11 +47,16 @@ const drivedData = derive({
 
     return selectedSchema?.states.map((state) => ({
       id: state.id,
-      data: { label: state.id },
+      data: {
+        label: state.id,
+        transitionId: state.transitionId,
+        schemaId: state.schemaId,
+      },
       position: {
         x: state.positionX ?? 0,
         y: state.positionY ?? 0,
       },
+      type: "stateNode",
     }));
   },
   transitionEdges: (get) => {
@@ -130,7 +135,19 @@ export const useSetSchemas = () => {
         | null
         | undefined
     ) => {
-      data.schemas = schemas;
+      data.schemas = schemas?.map((schema) => {
+        return {
+          ...schema,
+          states: schema.states.map((state) => {
+            return {
+              ...state,
+              transitionId: schema.transitions.find(
+                (transition) => transition.startFromStateId === state.id
+              )?.id,
+            };
+          }),
+        };
+      });
     },
     []
   );
