@@ -76,13 +76,13 @@ const drivedData = derive({
 
       const faildLine = {
         id: transition.startFromStateId + transition.faildToStateId,
-        source: transition.startFromStateId,
+        source: "faild_" + transition.startFromStateId,
         target: transition.faildToStateId,
       };
 
       const successLine = {
         id: transition.startFromStateId + transition.successToStateId,
-        source: transition.startFromStateId,
+        source: "source_" + transition.startFromStateId,
         target: transition.successToStateId,
       };
 

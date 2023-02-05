@@ -5,7 +5,6 @@ import {
 } from "@idealjs/ponder-shared-browser";
 import clsx from "clsx";
 import { nanoid } from "nanoid";
-import { Fragment } from "react";
 import { Handle, Position, useNodeId, useStore } from "reactflow";
 
 import CreateButton from "../components/CreateButton";
@@ -28,7 +27,6 @@ const StateNode = () => {
   const { mutate } = useSwrManySchema(query);
 
   const { trigger } = useSWRCreateTransition();
-  console.log("test test", node?.data.transitionId);
   return (
     <div
       className={clsx(
@@ -53,6 +51,19 @@ const StateNode = () => {
         </label>
         <div>{node?.data.label}</div>
       </div>
+
+      <Handle
+        className="box-content"
+        style={{
+          right: "-6px",
+          height: "12px",
+          width: "12px",
+          backgroundColor: "blue",
+        }}
+        type="target"
+        position={Position.Left}
+        id={node?.id}
+      />
 
       {node?.data.transitionId == null ? (
         <CreateButton
@@ -91,7 +102,7 @@ const StateNode = () => {
             }}
             type="source"
             position={Position.Right}
-            id={"success"}
+            id={"success_" + node.id}
           />
           <Handle
             className="box-content"
@@ -104,7 +115,7 @@ const StateNode = () => {
             }}
             type="source"
             position={Position.Right}
-            id={"faild"}
+            id={"faild_" + node.id}
           />
         </div>
       )}
