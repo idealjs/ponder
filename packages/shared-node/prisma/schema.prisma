@@ -31,6 +31,7 @@ model Schema {
 
 model State {
   id           String   @id @unique
+  name         String?
   schema       Schema?  @relation(fields: [schemaId], references: [id])
   schemaId     String?
   isStartState Boolean?

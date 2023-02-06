@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 
+import CreateButton from "../components/CreateButton";
 import { useSelectedSchema, useSelectedState } from "../store";
+import CreateAction from "./CreateActionModal";
 
 const InfoDrawer = () => {
   const selectedState = useSelectedState();
@@ -14,7 +16,7 @@ const InfoDrawer = () => {
     [selectedSchema?.transitions, selectedState?.id]
   );
 
-  const action = useMemo(
+  const currentAction = useMemo(
     () =>
       selectedSchema?.actions.find((action) => {
         return action.id === transition?.actionId;
@@ -24,8 +26,31 @@ const InfoDrawer = () => {
 
   return (
     <div className={"p-4 w-3/5 bg-base-100 text-base-content"}>
-      {selectedState?.id}
-      {transition == null ? "no transition" : "transition info"}
+      <div>
+        {selectedState?.name != null
+          ? `state name : ${selectedState?.name}`
+          : `state id : ${selectedState?.id}`}
+      </div>
+      <div>{transition == null ? "no transition" : "transition info"}</div>
+      <div className="flex items-center">
+        <select className="select select-primary w-full max-w-xs">
+          {selectedSchema?.actions.map((action) => {
+            return (
+              <option
+                value={action.id}
+                selected={action.id === currentAction?.id}
+              >
+                {action.id}
+              </option>
+            );
+          })}
+        </select>
+        <CreateButton
+          className="ml-2"
+          tooltip="Create Action"
+          htmlFor="create-action-modal"
+        />
+      </div>
     </div>
   );
 };

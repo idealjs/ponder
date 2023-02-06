@@ -19,6 +19,8 @@ import {
   useStateNodes,
   useTransitionEdges,
 } from "../store";
+import CreateActionModal from "./CreateActionModal";
+import CreateStateModal from "./CreateStateModal";
 import EditorMenu from "./EditorMenu";
 import InfoDrawer from "./InfoDrawer";
 import StateNode from "./StateNode";
@@ -124,9 +126,11 @@ const SchemaEditor = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="info-drawer" className="drawer-overlay"></label>
-          <InfoDrawer />
+          <InfoDrawer key={selectedStateId} />
         </div>
       </div>
+      <CreateActionModal />
+      <CreateStateModal />
     </div>
   );
 };

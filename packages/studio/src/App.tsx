@@ -1,3 +1,5 @@
+import "./components/monacoWorker";
+
 import { Schemas } from "./features";
 import SchemaEditor from "./features/SchemaEditor";
 import { useQuerySchemas } from "./hooks";
