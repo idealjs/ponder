@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@idealjs/ponder-shared-node": "^0.1.0",
-    "fastify": "^4.11.0"
+    "fastify": "^4.11.0",
+    "fastify-type-provider-zod": "^1.1.9"
   }
 }

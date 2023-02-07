@@ -1,10 +1,10 @@
-import { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { runSchema } from "@idealjs/ponder-shared-node";
-import { Type } from "@sinclair/typebox";
+import { FastifyPluginCallback } from "fastify";
+import { z } from "zod";
 
 import prisma from "./prisma";
 
-const routes: FastifyPluginAsyncTypebox = async (fastify) => {
+const routes: FastifyPluginCallback = async (fastify) => {
   fastify.get("/health", () => {
     return { alive: 1 };
   });
@@ -13,13 +13,13 @@ const routes: FastifyPluginAsyncTypebox = async (fastify) => {
     "/task",
     {
       schema: {
-        body: Type.Object({
-          schemaId: Type.String(),
+        body: z.object({
+          schemaId: z.string(),
         }),
       },
     },
     async (request) => {
-      const { schemaId } = request.body;
+      const { schemaId } = request.body as { schemaId: string };
       const schema = await prisma.schema.findUnique({
         where: {
           id: schemaId,

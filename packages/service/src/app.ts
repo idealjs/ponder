@@ -1,4 +1,9 @@
 import { FastifyInstance } from "fastify";
+import {
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
+} from "fastify-type-provider-zod";
 import { IncomingMessage, Server, ServerResponse } from "http";
 import {
   Http2SecureServer,
@@ -18,7 +23,9 @@ const app = (
   ServerResponse | Http2ServerResponse
 >;
 
-app.withTypeProvider()
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+app.withTypeProvider<ZodTypeProvider>();
 
 app.register(routes);
 

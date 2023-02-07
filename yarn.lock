@@ -5002,6 +5002,13 @@ fastify-type-provider-zod@^1.1.8:
   dependencies:
     zod-to-json-schema "^3.17.1"
 
+fastify-type-provider-zod@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.npmmirror.com/fastify-type-provider-zod/-/fastify-type-provider-zod-1.1.9.tgz#fcbb089e20cb91b9798ca8080a52217df191ab7f"
+  integrity sha512-Ztnu1ZWJEKJouZvdTyfgjuVqS+A4JLoCbWBvFqFhfnrg6YQvEvW+5cJvP98kNbuV5gjfpWmHSOTi3BpkidJPQg==
+  dependencies:
+    zod-to-json-schema "^3.17.1"
+
 fastify@^4.11.0:
   version "4.11.0"
   resolved "https://registry.npmmirror.com/fastify/-/fastify-4.11.0.tgz#7fa5614c81a618e67a7a467f0f1b33c43f4ff7d2"
