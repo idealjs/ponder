@@ -1,18 +1,78 @@
+import {
+  useSWRCreateAction,
+  useSwrManySchema,
+} from "@idealjs/ponder-shared-browser";
+import { nanoid } from "nanoid";
+import { useCallback } from "react";
+
 import Modal from "../components/Modal";
+import {
+  useSelectedSchemaId,
+  useSelectedState,
+  useSetSelectedStateId,
+} from "../store";
+import schemaQuery from "./schemaQuery";
+
+export const createAdtionModalId = "create-action-modal";
 
 const CreateActionModal = () => {
-  const id = "create-action-modal";
+  const { trigger } = useSWRCreateAction();
+  const { mutate } = useSwrManySchema(schemaQuery);
+
+  const selectedSchemaId = useSelectedSchemaId();
+  const selectedState = useSelectedState();
+
+  const onCreateNewAction = useCallback(async () => {
+    const id = nanoid();
+
+    await trigger({
+      data: {
+        id,
+        schema: {
+          connect: {
+            id: selectedSchemaId,
+          },
+        },
+        transitions: {
+          connect:
+            selectedState?.transitionId == null
+              ? undefined
+              : {
+                  id: selectedState.transitionId,
+                },
+          create:
+            selectedState?.transitionId != null
+              ? undefined
+              : {
+                  id: nanoid(),
+                  startFromState: {
+                    connect: {
+                      id: selectedState?.id,
+                    },
+                  },
+                  schema: {
+                    connect: {
+                      id: selectedSchemaId,
+                    },
+                  },
+                },
+        },
+      },
+    });
+
+    await mutate();
+  }, [mutate, selectedSchemaId, selectedState, trigger]);
+
   return (
-    <Modal id={id}>
-      <h3 className="font-bold text-lg">
-        Congratulations random Internet user!
-      </h3>
-      <p className="py-4">
-        You've been selected for a chance to get one year of subscription to use
-        Wikipedia for free!
-      </p>
+    <Modal id={createAdtionModalId}>
+      <h3 className="font-bold text-lg">Create A New Modal</h3>
+      <p className="py-4">You can set name after create.</p>
       <div className="modal-action">
-        <label htmlFor={id} className="btn">
+        <label
+          htmlFor={createAdtionModalId}
+          className="btn"
+          onClick={onCreateNewAction}
+        >
           Yay!
         </label>
       </div>

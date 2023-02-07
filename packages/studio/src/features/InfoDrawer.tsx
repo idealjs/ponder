@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import CreateButton from "../components/CreateButton";
 import { useSelectedSchema, useSelectedState } from "../store";
-import CreateAction from "./CreateActionModal";
+import { createAdtionModalId } from "./CreateActionModal";
 
 const InfoDrawer = () => {
   const selectedState = useSelectedState();
@@ -24,6 +24,8 @@ const InfoDrawer = () => {
     [selectedSchema?.actions, transition?.actionId]
   );
 
+  console.log("test test", JSON.stringify(selectedSchema?.actions, null, 2));
+
   return (
     <div className={"p-4 w-3/5 bg-base-100 text-base-content"}>
       <div>
@@ -32,13 +34,30 @@ const InfoDrawer = () => {
           : `state id : ${selectedState?.id}`}
       </div>
       <div>{transition == null ? "no transition" : "transition info"}</div>
+
+      <div>actions</div>
       <div className="flex items-center">
-        <select className="select select-primary w-full max-w-xs">
+        <select
+          className="select select-primary w-full max-w-xs"
+          value={currentAction?.id ?? "empty"}
+          onChange={() => {}}
+        >
+          <option
+            value="empty"
+            // selected={
+            //   currentAction?.id != null
+            //     ? !selectedSchema?.actions
+            //         .map((a) => a.id)
+            //         .includes(currentAction?.id)
+            //     : true
+            // }
+          ></option>
           {selectedSchema?.actions.map((action) => {
             return (
               <option
+                key={action.id}
                 value={action.id}
-                selected={action.id === currentAction?.id}
+                // selected={action.id === currentAction?.id}
               >
                 {action.id}
               </option>
@@ -48,7 +67,7 @@ const InfoDrawer = () => {
         <CreateButton
           className="ml-2"
           tooltip="Create Action"
-          htmlFor="create-action-modal"
+          htmlFor={createAdtionModalId}
         />
       </div>
     </div>

@@ -7,20 +7,13 @@ import { useCallback } from "react";
 
 import Modal from "../components/Modal";
 import { useSelectedSchemaId, useSetSelectedStateId } from "../store";
-
-const query = {
-  include: {
-    states: true,
-    transitions: true,
-    actions: true,
-  },
-};
+import schemaQuery from "./schemaQuery";
 
 export const createStateModalId = "create-state-modal";
 
 const CreateStateModal = () => {
   const { trigger } = useSWRCreateState();
-  const { mutate } = useSwrManySchema(query);
+  const { mutate } = useSwrManySchema(schemaQuery);
 
   const setSelectedStateId = useSetSelectedStateId();
   const selectedSchemaId = useSelectedSchemaId();

@@ -9,14 +9,7 @@ import { Handle, Position, useNodeId, useStore } from "reactflow";
 
 import CreateButton from "../components/CreateButton";
 import { useSetSelectedStateId } from "../store";
-
-const query = {
-  include: {
-    states: true,
-    transitions: true,
-    actions: true,
-  },
-};
+import schemaQuery from "./schemaQuery";
 
 const StateNode = () => {
   const nodeId = useNodeId();
@@ -24,7 +17,7 @@ const StateNode = () => {
   const node = useStore((s) => {
     return nodeId == null ? null : s.nodeInternals.get(nodeId);
   });
-  const { mutate } = useSwrManySchema(query);
+  const { mutate } = useSwrManySchema(schemaQuery);
 
   const { trigger } = useSWRCreateTransition();
   return (

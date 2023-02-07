@@ -21,7 +21,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.findMany(
+      return await fastify.prisma.<%= name.toLowerCase() %>.findMany(
         req.query as Prisma.<%= name %>FindManyArgs
       );
     }
@@ -35,7 +35,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.createMany(
+      return await fastify.prisma.<%= name.toLowerCase() %>.createMany(
         req.body as Prisma.<%= name %>CreateManyArgs
       );
     }
@@ -49,7 +49,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.updateMany(
+      return await fastify.prisma.<%= name.toLowerCase() %>.updateMany(
         req.body as Prisma.<%= name %>UpdateManyArgs
       );
     }
@@ -63,7 +63,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.deleteMany(
+      return await fastify.prisma.<%= name.toLowerCase() %>.deleteMany(
         req.body as Prisma.<%= name %>DeleteManyArgs
       );
     }
@@ -77,7 +77,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.create(req.body as Prisma.<%= name %>CreateArgs);
+      return await fastify.prisma.<%= name.toLowerCase() %>.create(req.body as Prisma.<%= name %>CreateArgs);
     }
   );
 
@@ -89,7 +89,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.update(req.body as Prisma.<%= name %>UpdateArgs);
+      return await fastify.prisma.<%= name.toLowerCase() %>.update(req.body as Prisma.<%= name %>UpdateArgs);
     }
   );
 
@@ -101,7 +101,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
+      return await fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
     }
   );
 
@@ -113,7 +113,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       },
     },
     async (req) => {
-      return fastify.prisma.<%= name.toLowerCase() %>.delete(req.body as Prisma.<%= name %>DeleteArgs);
+      return await fastify.prisma.<%= name.toLowerCase() %>.delete(req.body as Prisma.<%= name %>DeleteArgs);
     }
   );
 };

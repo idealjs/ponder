@@ -1,19 +1,12 @@
 import { useSwrManySchema } from "@idealjs/ponder-shared-browser";
 import { useEffect } from "react";
 
+import schemaQuery from "../features/schemaQuery";
 import { useSetSchemas } from "../store";
-
-const query = {
-  include: {
-    states: true,
-    transitions: true,
-    actions: true,
-  },
-};
 
 export const useQuerySchemas = () => {
   const setSchemas = useSetSchemas();
-  const { data, error } = useSwrManySchema(query);
+  const { data, error } = useSwrManySchema(schemaQuery);
   useEffect(() => {
     if (!error) {
       setSchemas(data);

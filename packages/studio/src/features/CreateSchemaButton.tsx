@@ -7,24 +7,17 @@ import { useCallback } from "react";
 
 import CreateButton from "../components/CreateButton";
 import { useSetSelectedSchemaId } from "../store";
+import schemaQuery from "./schemaQuery";
 
 interface IProps {
   className?: string;
 }
 
-const query = {
-  include: {
-    states: true,
-    transitions: true,
-    actions: true,
-  },
-};
-
 const CreateSchemaButton = (props: IProps) => {
   const { className } = props;
 
   const { trigger } = useSWRCreateSchema();
-  const { mutate } = useSwrManySchema(query);
+  const { mutate } = useSwrManySchema(schemaQuery);
   const setSelectedSchemaId = useSetSelectedSchemaId();
 
   const onClick = useCallback(async () => {
@@ -33,7 +26,7 @@ const CreateSchemaButton = (props: IProps) => {
     };
 
     await trigger({
-      ...query,
+      ...schemaQuery,
       data: newSchema,
     });
 

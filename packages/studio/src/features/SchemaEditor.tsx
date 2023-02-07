@@ -23,15 +23,8 @@ import CreateActionModal from "./CreateActionModal";
 import CreateStateModal from "./CreateStateModal";
 import EditorMenu from "./EditorMenu";
 import InfoDrawer from "./InfoDrawer";
+import schemaQuery from "./schemaQuery";
 import StateNode from "./StateNode";
-
-const query = {
-  include: {
-    states: true,
-    transitions: true,
-    actions: true,
-  },
-};
 
 const nodeTypes = {
   stateNode: StateNode,
@@ -45,7 +38,7 @@ const SchemaEditor = () => {
 
   const selectedStateId = useSelectedStateId();
   const setSelectedStateId = useSetSelectedStateId();
-  const { mutate } = useSwrManySchema(query);
+  const { mutate } = useSwrManySchema(schemaQuery);
   const [nodes, setNodes, onNodesChange] = useNodesState(stateNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(transitionEdges);
 
