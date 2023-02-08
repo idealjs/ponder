@@ -14,7 +14,7 @@ const data = proxy<
   Partial<{
     schemas:
       | (Schema & {
-          states: (State & { transitionId?: string })[];
+          states: State[];
           transitions: Transition[];
           actions: Action[];
         })[]
@@ -37,6 +37,23 @@ const drivedData = derive({
     const selectedStateId = get(selected).stateId;
 
     return selectedSchema?.states.find((state) => state.id === selectedStateId);
+  },
+  selectedTransition: (get) => {
+    const selectedSchemaId = get(selected).schemaId;
+    const schemas = get(data).schemas;
+    const selectedSchema = schemas?.find(
+      (schema) => schema.id === selectedSchemaId
+    );
+    const selectedStateId = get(selected).stateId;
+    const selectedTransitionId = selectedSchema?.states.find(
+      (state) => state.id === selectedStateId
+    )?.transitionId;
+
+    const selectedTransition = selectedSchema?.transitions.find(
+      (transition) => transition.id === selectedTransitionId
+    );
+
+    return selectedTransition;
   },
   stateNodes: (get) => {
     const selectedSchemaId = get(selected).schemaId;
@@ -66,9 +83,18 @@ const drivedData = derive({
       (schema) => schema.id === selectedSchemaId
     );
 
-    return selectedSchema?.transitions.flatMap((transition) => {
+    const transitions = selectedSchema?.transitions.map((transition) => {
+      return {
+        ...transition,
+        startFromState: selectedSchema.states.find(
+          (state) => state.transitionId === transition.id
+        ),
+      };
+    });
+
+    return transitions?.flatMap((transition) => {
       if (
-        transition.startFromStateId == null ||
+        transition.startFromState?.id == null ||
         (transition.faildToStateId == null &&
           transition.successToStateId == null)
       ) {
@@ -77,14 +103,14 @@ const drivedData = derive({
 
       const faildLine = {
         id: "faild-" + transition.id,
-        source: transition.startFromStateId,
+        source: transition.startFromState.id,
         target: transition.faildToStateId,
         sourceHandle: "faild",
       };
 
       const successLine = {
         id: "success-" + transition.id,
-        source: transition.startFromStateId,
+        source: transition.startFromState.id,
         target: transition.successToStateId,
         sourceHandle: "success",
       };
@@ -139,19 +165,7 @@ export const useSetSchemas = () => {
         | null
         | undefined
     ) => {
-      data.schemas = schemas?.map((schema) => {
-        return {
-          ...schema,
-          states: schema.states.map((state) => {
-            return {
-              ...state,
-              transitionId: schema.transitions.find(
-                (transition) => transition.startFromStateId === state.id
-              )?.id,
-            };
-          }),
-        };
-      });
+      data.schemas = schemas;
     },
     []
   );
@@ -187,6 +201,10 @@ export const useSelectedStateId = () => {
 
 export const useSelectedState = () => {
   return useSnapshot(drivedData).selectedState;
+};
+
+export const useSelectedTransition = () => {
+  return useSnapshot(drivedData).selectedTransition;
 };
 
 export const useStateNodes = () => {

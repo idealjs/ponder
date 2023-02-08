@@ -42,14 +42,14 @@ model State {
   positionX Int?
   positionY Int?
 
-  transition Transition? @relation("startStateOnTransition")
+  transition   Transition? @relation("startStateOnTransition", fields: [transitionId], references: [id])
+  transitionId String?     @unique
 }
 
 model Transition {
   id String @id @unique
 
-  startFromStateId String @unique
-  startFromState   State? @relation("startStateOnTransition", fields: [startFromStateId], references: [id])
+  startFromState State? @relation("startStateOnTransition")
 
   faildToState   State?  @relation("faildToStateOnTransition", fields: [faildToStateId], references: [id])
   faildToStateId String?

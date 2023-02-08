@@ -1,27 +1,24 @@
 import { useMemo } from "react";
 
 import CreateButton from "../components/CreateButton";
-import { useSelectedSchema, useSelectedState } from "../store";
+import {
+  useSelectedSchema,
+  useSelectedState,
+  useSelectedTransition,
+} from "../store";
 import { createAdtionModalId } from "./CreateActionModal";
 
 const InfoDrawer = () => {
   const selectedState = useSelectedState();
   const selectedSchema = useSelectedSchema();
-
-  const transition = useMemo(
-    () =>
-      selectedSchema?.transitions.find((transition) => {
-        return transition.startFromStateId === selectedState?.id;
-      }),
-    [selectedSchema?.transitions, selectedState?.id]
-  );
+  const selectedTransition = useSelectedTransition();
 
   const currentAction = useMemo(
     () =>
       selectedSchema?.actions.find((action) => {
-        return action.id === transition?.actionId;
+        return action.id === selectedTransition?.actionId;
       }),
-    [selectedSchema?.actions, transition?.actionId]
+    [selectedSchema?.actions, selectedTransition?.actionId]
   );
 
   console.log("test test", JSON.stringify(selectedSchema?.actions, null, 2));
@@ -33,7 +30,9 @@ const InfoDrawer = () => {
           ? `state name : ${selectedState?.name}`
           : `state id : ${selectedState?.id}`}
       </div>
-      <div>{transition == null ? "no transition" : "transition info"}</div>
+      <div>
+        {selectedTransition == null ? "no transition" : "transition info"}
+      </div>
 
       <div>actions</div>
       <div className="flex items-center">
