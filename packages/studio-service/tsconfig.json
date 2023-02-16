@@ -1,6 +1,7 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "noEmit": true,
     "lib": ["esnext"]
   },
   "ts-node": {
@@ -9,5 +10,6 @@
     "experimentalSpecifierResolution": "node"
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "references": [{ "path": "../shared-node" }]
 }

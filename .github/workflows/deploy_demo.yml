@@ -1,0 +1,32 @@
+name: deploy_demo
+
+on:
+  push:
+    branches: [demo]
+  workflow_run:
+    workflows: [test]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy-demo:
+    runs-on: ali-HK
+    environment: demo
+    steps:
+      - uses: actions/checkout@v3
+      - shell: bash
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        run: |
+          sudo docker-compose up -d db
+          cd packages/shared-node && npx prisma generate reset -f && cd -
+          export DB_URL=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.Gateway}}{{end}}' ponder-db)
+          POSTGRES_USER=$POSTGRES_USER \
+          POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+          POSTGRES_DB=$POSTGRES_DB \
+          DATABASE_URL=$DATABASE_URL \
+          sudo docker-compose up -d --build

@@ -4,20 +4,17 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test": "vitest"
   },
   "dependencies": {
     "qs": "^6.11.0",
-    "swr": "^2.0.2"
+    "swr": "^2.0.3"
   },
   "devDependencies": {
     "react": "^18.2.0",
-    "swr": "^2.0.3",
     "vitest": "^0.27.1"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "swr": "^2.0.3"
+    "react": "^18.2.0"
   }
 }

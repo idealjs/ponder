@@ -1,16 +1,15 @@
 {
-  "name": "@idealjs/mono-template",
+  "name": "@idealjs/ponder",
   "private": true,
   "workspaces": [
     "packages/*",
     "example"
   ],
-  "repository": "git@github.com:idealjs/mono-template.git",
+  "repository": "git@github.com:idealjs/ponder.git",
   "license": "MIT",
   "scripts": {
     "format": "prettier --write .",
-    "lint": "eslint packages/**/*.{tsx,ts} --fix",
-    "test": "jest"
+    "lint": "eslint packages/**/*.{tsx,ts} --fix"
   },
   "devDependencies": {
     "eslint": "^8.31.0",

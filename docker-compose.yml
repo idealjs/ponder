@@ -1,11 +1,48 @@
-version: "3.3"
+version: "3.7"
 
 services:
   db:
+    container_name: ponder-db
     image: postgres
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+  studio:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: studio
+    ports:
+      - 5173:5173
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+
+  studio-service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: studio-service
+    ports:
+      - 3010:3010
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+
+  service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: service
+    ports:
+      - 3100:3100
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+
+  test:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: test
