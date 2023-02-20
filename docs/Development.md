@@ -5,9 +5,10 @@
 ## Prepare Environment
 
 ```
-cp packages/service/dev.env packages/service/.env
-cp packages/studio-service/dev.env packages/studio-service/.env
-cp packages/shared-node/dev.env packages/shared-node/.env
+cp dev.env packages/service/.env
+cp dev.env packages/studio-service/.env
+cp dev.env packages/shared-node/.env
+cp dev.env packages/studio/.env
 ```
 
 ## Install Deps
@@ -19,7 +20,7 @@ yarn
 ## Run Database
 
 ```
-docker-compose up
+docker compose --env-file .env up db
 ```
 
 ### Migration DB Schema
