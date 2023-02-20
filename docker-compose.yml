@@ -19,7 +19,7 @@ services:
     ports:
       - 5173:5173
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      VITE_BACKEND_BASE_URL: ${VITE_BACKEND_BASE_URL}
 
   studio-service:
     build:
@@ -46,3 +46,11 @@ services:
       context: ./
       dockerfile: Dockerfile
       target: test
+
+  seed-db:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: seed-db
+    environment:
+      DATABASE_URL: ${DATABASE_URL}

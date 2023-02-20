@@ -15,18 +15,32 @@ jobs:
     environment: demo
     steps:
       - uses: actions/checkout@v3
-      - shell: bash
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install wait-on
+        run: npm install -g wait-on
+      - uses: docker/setup-buildx-action@v2
+      - name: Deploy
+        shell: bash
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
         run: |
-          sudo docker-compose up -d db
-          cd packages/shared-node && npx prisma generate reset -f && cd -
-          export DB_URL=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.Gateway}}{{end}}' ponder-db)
-          POSTGRES_USER=$POSTGRES_USER \
-          POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
-          POSTGRES_DB=$POSTGRES_DB \
-          DATABASE_URL=$DATABASE_URL \
-          sudo docker-compose up -d --build
+          echo POSTGRES_DB=$POSTGRES_DB >> .env
+          echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env
+          echo POSTGRES_USER=$POSTGRES_USER >> .env
+          sudo docker compose --env-file .env up db -d --build
+          wait-on tcp:5432
+          export DOCKER_URL=$(sudo docker inspect -f '{{range.NetworkSettings.Networks}}{{.Gateway}}{{end}}' ponder-db)
+          echo DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DOCKER_URL}:5432/${POSTGRES_DB} >> .env
+          echo VITE_BACKEND_BASE_URL=http://47.243.108.182:3010 >> .env
+          sudo docker compose --env-file .env up seed-db --build
+          sudo docker compose --env-file .env up service -d --build
+          sudo docker compose --env-file .env up studio-service -d --build
+          sudo docker compose --env-file .env up studio -d --build
+        timeout-minutes: 10
+      - name: Uninstall wait-on
+        if: always()
+        run: npm uninstall -g wait-on
