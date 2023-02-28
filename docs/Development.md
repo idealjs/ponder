@@ -20,7 +20,7 @@ yarn
 ## Run Database
 
 ```
-docker compose --env-file .env up db
+docker compose --env-file dev.env up db
 ```
 
 ### Migration DB Schema

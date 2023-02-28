@@ -1,3 +1,7 @@
+import {
+  useSwrManySchema,
+  useSWRUpdateTransition,
+} from "@idealjs/ponder-shared-browser";
 import { useMemo } from "react";
 
 import CreateButton from "../components/CreateButton";
@@ -7,6 +11,7 @@ import {
   useSelectedTransition,
 } from "../store";
 import { createAdtionModalId } from "./CreateActionModal";
+import schemaQuery from "./schemaQuery";
 
 const InfoDrawer = () => {
   const selectedState = useSelectedState();
@@ -21,7 +26,8 @@ const InfoDrawer = () => {
     [selectedSchema?.actions, selectedTransition?.actionId]
   );
 
-  console.log("test test", JSON.stringify(selectedSchema?.actions, null, 2));
+  const { trigger } = useSWRUpdateTransition();
+  const { mutate } = useSwrManySchema(schemaQuery);
 
   return (
     <div className={"p-4 w-3/5 bg-base-100 text-base-content"}>
@@ -39,25 +45,26 @@ const InfoDrawer = () => {
         <select
           className="select select-primary w-full max-w-xs"
           value={currentAction?.id ?? "empty"}
-          onChange={() => {}}
+          onChange={async (event) => {
+            if (selectedTransition?.id != null) {
+              await trigger({
+                where: {
+                  id: selectedTransition?.id,
+                },
+                data: {
+                  actionId: event.target.value,
+                },
+              });
+              await mutate();
+            }
+          }}
         >
-          <option
-            value="empty"
-            // selected={
-            //   currentAction?.id != null
-            //     ? !selectedSchema?.actions
-            //         .map((a) => a.id)
-            //         .includes(currentAction?.id)
-            //     : true
-            // }
-          ></option>
+          <option value="empty" disabled={true}>
+            -- select an option --
+          </option>
           {selectedSchema?.actions.map((action) => {
             return (
-              <option
-                key={action.id}
-                value={action.id}
-                // selected={action.id === currentAction?.id}
-              >
+              <option key={action.id} value={action.id}>
                 {action.id}
               </option>
             );

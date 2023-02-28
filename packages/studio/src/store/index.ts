@@ -65,7 +65,7 @@ const drivedData = derive({
     return selectedSchema?.states.map((state) => ({
       id: state.id,
       data: {
-        label: state.id,
+        label: state.name ?? state.id,
         transitionId: state.transitionId,
         schemaId: state.schemaId,
       },
