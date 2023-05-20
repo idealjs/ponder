@@ -1,13 +1,13 @@
 import { ErrorMessage } from "@hookform/error-message";
-import {
-  useSWRCreateState,
-  useSwrManySchema,
-} from "@idealjs/ponder-shared-browser";
 import { nanoid } from "nanoid";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
 import Modal, { IModalRef } from "../components/Modal";
+import {
+  useSWRCreateState,
+  useSwrManySchema,
+} from "../generated/swr";
 import { useSelectedSchemaId, useSetSelectedStateId } from "../store";
 import schemaQuery from "./schemaQuery";
 

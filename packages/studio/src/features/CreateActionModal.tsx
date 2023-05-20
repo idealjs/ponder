@@ -1,16 +1,9 @@
-import {
-  useSWRCreateAction,
-  useSwrManySchema,
-} from "@idealjs/ponder-shared-browser";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
 
 import Modal from "../components/Modal";
-import {
-  useSelectedSchemaId,
-  useSelectedState,
-  useSetSelectedStateId,
-} from "../store";
+import { useSWRCreateAction, useSwrManySchema } from "../generated/swr";
+import { useSelectedSchemaId, useSelectedState } from "../store";
 import schemaQuery from "./schemaQuery";
 
 export const createAdtionModalId = "create-action-modal";

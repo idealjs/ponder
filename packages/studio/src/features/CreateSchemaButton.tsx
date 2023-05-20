@@ -1,11 +1,11 @@
-import {
-  useSWRCreateSchema,
-  useSwrManySchema,
-} from "@idealjs/ponder-shared-browser";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
 
 import CreateButton from "../components/CreateButton";
+import {
+  useSWRCreateSchema,
+  useSwrManySchema,
+} from "../generated/swr";
 import { useSetSelectedSchemaId } from "../store";
 import schemaQuery from "./schemaQuery";
 

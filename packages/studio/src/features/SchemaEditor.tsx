@@ -1,9 +1,5 @@
 import "reactflow/dist/style.css";
 
-import {
-  useSwrManySchema,
-  useSWRUpdateState,
-} from "@idealjs/ponder-shared-browser";
 import { useEffect } from "react";
 import ReactFlow, {
   Background,
@@ -13,6 +9,7 @@ import ReactFlow, {
   useNodesState,
 } from "reactflow";
 
+import { useSwrManySchema, useSWRUpdateState } from "../generated/swr";
 import {
   useSelectedStateId,
   useSetSelectedStateId,

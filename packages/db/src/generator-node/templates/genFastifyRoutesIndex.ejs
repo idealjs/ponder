@@ -1,0 +1,12 @@
+import { FastifyPluginAsync } from "fastify";
+import fp from "fastify-plugin";
+
+<% names.sort().forEach((name)=>{ %>import <%= name.toLowerCase() %>Routes from "./<%= name %>"
+<% }) %>
+
+const routes: FastifyPluginAsync = async (fastify) => {
+  <% names.sort().forEach((name)=>{ %>fastify.register(<%= name.toLowerCase() %>Routes);
+  <% }) %>
+};
+
+export default fp(routes);

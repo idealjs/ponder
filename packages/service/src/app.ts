@@ -1,9 +1,5 @@
+import cors from "@fastify/cors";
 import { FastifyInstance } from "fastify";
-import {
-  serializerCompiler,
-  validatorCompiler,
-  ZodTypeProvider,
-} from "fastify-type-provider-zod";
 import { IncomingMessage, Server, ServerResponse } from "http";
 import {
   Http2SecureServer,
@@ -11,6 +7,7 @@ import {
   Http2ServerResponse,
 } from "http2";
 
+import prismaPlugin from "./generated/prismaPlugin";
 import http from "./http";
 import http2 from "./http2";
 import routes from "./routes";
@@ -23,10 +20,9 @@ const app = (
   ServerResponse | Http2ServerResponse
 >;
 
-app.setValidatorCompiler(validatorCompiler);
-app.setSerializerCompiler(serializerCompiler);
-app.withTypeProvider<ZodTypeProvider>();
-
+app.register(cors);
 app.register(routes);
+
+app.register(prismaPlugin);
 
 export default app;

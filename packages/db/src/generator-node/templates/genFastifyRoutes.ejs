@@ -1,0 +1,121 @@
+import type { Prisma } from "@prisma/client";
+import { FastifyPluginAsync } from "fastify";
+import fp from "fastify-plugin";
+
+import {
+  <%= name %>CreateArgsSchema,
+  <%= name %>CreateManyArgsSchema,
+  <%= name %>DeleteArgsSchema,
+  <%= name %>FindManyArgsSchema,
+  <%= name %>UpdateArgsSchema,
+  <%= name %>UpdateManyArgsSchema,
+  <%= name %>UpsertArgsSchema,
+} from "../zod";
+
+const routes: FastifyPluginAsync = async (fastify) => {
+  fastify.get(
+    "/<%= name.toLowerCase() %>/findMany",
+    {
+      schema: {
+        querystring: <%= name %>FindManyArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.findMany(
+        req.query as Prisma.<%= name %>FindManyArgs
+      );
+    }
+  );
+
+  fastify.post(
+    "/<%= name.toLowerCase() %>/createMany",
+    {
+      schema: {
+        body: <%= name %>CreateManyArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.createMany(
+        req.body as Prisma.<%= name %>CreateManyArgs
+      );
+    }
+  );
+
+  fastify.patch(
+    "/<%= name.toLowerCase() %>/updateMany",
+    {
+      schema: {
+        body: <%= name %>UpdateManyArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.updateMany(
+        req.body as Prisma.<%= name %>UpdateManyArgs
+      );
+    }
+  );
+
+  fastify.delete(
+    "/<%= name.toLowerCase() %>/deleteMany",
+    {
+      schema: {
+        body: <%= name %>DeleteArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.deleteMany(
+        req.body as Prisma.<%= name %>DeleteManyArgs
+      );
+    }
+  );
+
+  fastify.post(
+    "/<%= name.toLowerCase() %>/create",
+    {
+      schema: {
+        body: <%= name %>CreateArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.create(req.body as Prisma.<%= name %>CreateArgs);
+    }
+  );
+
+  fastify.patch(
+    "/<%= name.toLowerCase() %>/update",
+    {
+      schema: {
+        body: <%= name %>UpdateArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.update(req.body as Prisma.<%= name %>UpdateArgs);
+    }
+  );
+
+  fastify.put(
+    "/<%= name.toLowerCase() %>/upsert",
+    {
+      schema: {
+        body: <%= name %>UpsertArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.upsert(req.body as Prisma.<%= name %>UpsertArgs);
+    }
+  );
+
+  fastify.delete(
+    "/<%= name.toLowerCase() %>/delete",
+    {
+      schema: {
+        body: <%= name %>DeleteArgsSchema,
+      },
+    },
+    async (req) => {
+      return await fastify.prisma.<%= name.toLowerCase() %>.delete(req.body as Prisma.<%= name %>DeleteArgs);
+    }
+  );
+};
+
+export default fp(routes);

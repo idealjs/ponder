@@ -2,29 +2,45 @@
 
 > These commands should be executed in the project root directory.
 
-## Prepare Environment
-
-```
-cp dev.env packages/service/.env
-cp dev.env packages/studio-service/.env
-cp dev.env packages/shared-node/.env
-cp dev.env packages/studio/.env
-```
-
-## Install Deps
+## 1. Install Deps
 
 ```
 yarn
 ```
 
-## Run Database
+## 2. Prepare Environment
+
+### 2.1 Copy DB Env
+```
+cp dev.env .env
+```
+
+### 2.2 Write Frontend Dev Env
+
+```
+echo VITE_BACKEND_BASE_URL=http://localhost:3010 >> packages/studio/.env
+```
+
+## 3. Run Local Dev Database
 
 ```
 docker compose --env-file dev.env up db
 ```
 
-### Migration DB Schema
+### 4. Migration DB Schema
 
 ```
-cd packages/shared-node && yarn prisma migrate deploy && cd -
+yarn prisma migrate deploy
+```
+
+### 5. Generate Code
+
+```
+yarn prisma generate
+```
+
+### 6. Start Development
+
+```
+yarn dev
 ```

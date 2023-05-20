@@ -1,12 +1,34 @@
-import type {
-  Action,
-  Schema,
-  State,
-  Transition,
-} from "@idealjs/ponder-shared-node";
 import { useCallback } from "react";
 import { proxy, useSnapshot } from "valtio";
 import { derive } from "valtio/utils";
+
+type Action = {
+  id: string;
+  schemaId: string | null;
+  url: string | null;
+  content: string | null;
+};
+
+type Schema = {
+  id: string;
+};
+
+type State = {
+  id: string;
+  name: string | null;
+  schemaId: string | null;
+  isStartState: boolean | null;
+  positionX: number | null;
+  positionY: number | null;
+  transitionId: string | null;
+};
+
+type Transition = {
+  id: string;
+  faildToStateId: string | null;
+  successToStateId: string | null;
+  actionId: string | null;
+};
 
 const selected = proxy<Partial<{ schemaId: string; stateId: string }>>({});
 

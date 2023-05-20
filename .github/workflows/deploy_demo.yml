@@ -38,7 +38,6 @@ jobs:
           echo VITE_BACKEND_BASE_URL=http://47.243.108.182:3010 >> .env
           sudo docker compose --env-file .env up seed-db --build
           sudo docker compose --env-file .env up service -d --build
-          sudo docker compose --env-file .env up studio-service -d --build
           sudo docker compose --env-file .env up studio -d --build
         timeout-minutes: 10
       - name: Uninstall wait-on

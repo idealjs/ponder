@@ -1,13 +1,13 @@
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import {
-  useSWRCreateTransition,
-  useSwrManySchema,
-} from "@idealjs/ponder-shared-browser";
 import clsx from "clsx";
 import { nanoid } from "nanoid";
 import { Handle, Position, useNodeId, useStore } from "reactflow";
 
 import CreateButton from "../components/CreateButton";
+import {
+  useSWRCreateTransition,
+  useSwrManySchema,
+} from "../generated/swr";
 import { useSetSelectedStateId } from "../store";
 import schemaQuery from "./schemaQuery";
 

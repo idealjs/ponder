@@ -1,10 +1,10 @@
-import {
-  useSwrManySchema,
-  useSWRUpdateTransition,
-} from "@idealjs/ponder-shared-browser";
 import { useMemo } from "react";
 
 import CreateButton from "../components/CreateButton";
+import {
+  useSwrManySchema,
+  useSWRUpdateTransition,
+} from "../generated/swr";
 import {
   useSelectedSchema,
   useSelectedState,
@@ -30,7 +30,7 @@ const InfoDrawer = () => {
   const { mutate } = useSwrManySchema(schemaQuery);
 
   return (
-    <div className={"p-4 w-3/5 bg-base-100 text-base-content"}>
+    <div className={"p-4 bg-base-100 text-base-content"}>
       <div>
         {selectedState?.name != null
           ? `state name : ${selectedState?.name}`
@@ -60,7 +60,7 @@ const InfoDrawer = () => {
           }}
         >
           <option value="empty" disabled={true}>
-            -- select an option --
+            -- select an action --
           </option>
           {selectedSchema?.actions.map((action) => {
             return (

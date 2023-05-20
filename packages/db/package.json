@@ -1,0 +1,28 @@
+{
+  "name": "@idealjs/ponder-db",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/generator-helper": "^4.14.1",
+    "@prisma/internals": "^4.14.1",
+    "ejs": "^3.1.9",
+    "prettier": "^2.8.8",
+    "prisma": "^4.14.1",
+    "zod-prisma-types": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.2",
+    "@types/node": "^20.2.1",
+    "@types/prettier": "^2.7.2",
+    "@vitest/coverage-c8": "^0.28.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1"
+  }
+}

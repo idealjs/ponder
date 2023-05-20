@@ -15,5 +15,10 @@
     "isolatedModules": true,
     "declaration": true,
     "composite": true
+  },
+  "ts-node": {
+    "esm": true,
+    "swc": true,
+    "experimentalSpecifierResolution": "node"
   }
 }
