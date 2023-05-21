@@ -83,6 +83,7 @@ const SchemaEditor = () => {
                   },
                 });
                 await mutate();
+                node?.id && setSelectedStateId(node.id);
               }}
               onConnect={async (connection) => {
                 await trigger({
