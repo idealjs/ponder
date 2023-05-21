@@ -128,22 +128,3 @@ export interface IAction {
   content?: string;
 }
 ```
-
-
-## Quick Start
-
-```
-docker compose --env-file dev.env up db -d
-```
-
-```
-cp dev.env .env
-```
-
-```
-yarn prisma migrate reset
-```
-
-```
-echo VITE_BACKEND_BASE_URL=http://localhost:3010 >> packages/studio/.env
-```
