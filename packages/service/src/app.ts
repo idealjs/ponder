@@ -21,8 +21,8 @@ const app = (
 >;
 
 app.register(cors);
+app.register(prismaPlugin);
 app.register(routes);
 
-app.register(prismaPlugin);
 
 export default app;
