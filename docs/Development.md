@@ -11,8 +11,9 @@ yarn
 ## 2. Prepare Environment
 
 ### 2.1 Copy DB Env
+
 ```
-cp dev.env .env
+cp dev.env packages/db/.env
 ```
 
 ### 2.2 Write Frontend Dev Env
@@ -30,13 +31,13 @@ docker compose --env-file dev.env up db
 ### 4. Migration DB Schema
 
 ```
-yarn prisma migrate deploy
+yarn workspace @idealjs/ponder-db run prisma migrate deploy
 ```
 
 ### 5. Generate Code
 
 ```
-yarn prisma generate
+yarn workspace @idealjs/ponder-db run prisma generate
 ```
 
 ### 6. Start Development

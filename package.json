@@ -8,12 +8,12 @@
   "repository": "git@github.com:idealjs/ponder.git",
   "license": "MIT",
   "scripts": {
-    "format": "prettier --write .",
+    "prisma": "prisma",
+    "format": "prettier ./**/*.{ts,tsx,md} --write",
     "lint": "eslint packages/**/*.{tsx,ts} --fix",
-    "dev": "concurrently \"cd packages/service && yarn dev\" \"cd packages/studio && yarn dev\""
+    "dev": "yarn workspaces foreach run dev"
   },
   "devDependencies": {
-    "concurrently": "^8.0.1",
     "eslint": "^8.31.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
@@ -21,5 +21,6 @@
     "lerna": "^4.0.0",
     "lerna-update-wizard": "^1.1.2",
     "prettier": "^2.8.3"
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }

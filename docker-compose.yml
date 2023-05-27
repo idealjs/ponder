@@ -21,16 +21,6 @@ services:
     environment:
       VITE_BACKEND_BASE_URL: ${VITE_BACKEND_BASE_URL}
 
-  studio-service:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      target: studio-service
-    ports:
-      - 3010:3010
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-
   service:
     build:
       context: ./

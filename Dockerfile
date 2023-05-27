@@ -1,13 +1,15 @@
-FROM node:16 AS builder
+FROM node:18 AS builder
 WORKDIR workspace
 
 COPY package.json .
 COPY yarn.lock .
 COPY lerna.json .
 COPY tsconfig.json .
+COPY .yarn .yarn
+COPY .yarnrc.yml .
 
-COPY ./packages/shared/package.json ./packages/shared/package.json
-COPY ./packages/shared/package.json ./packages/shared/tsconfig.json
+COPY ./packages/db/package.json ./packages/db/package.json
+COPY ./packages/db/package.json ./packages/db/tsconfig.json
 
 COPY ./packages/service/package.json ./packages/service/package.json
 COPY ./packages/service/package.json ./packages/service/tsconfig.json
@@ -15,31 +17,29 @@ COPY ./packages/service/package.json ./packages/service/tsconfig.json
 COPY ./packages/studio/package.json ./packages/studio/package.json
 COPY ./packages/studio/package.json ./packages/studio/tsconfig.json
 
-RUN yarn install --frozen-lockfile --cache-folder .yarn
+RUN yarn install --immutable
 
-COPY ./packages/shared ./packages/shared
+COPY ./packages/db ./packages/db
 
 COPY ./packages/service ./packages/service
 
 COPY ./packages/studio ./packages/studio
 
-RUN yarn install --frozen-lockfile --cache-folder .yarn
-
-RUN yarn lerna run generate
+RUN yarn workspace @idealjs/ponder-db run prisma generate
 
 # service
 FROM builder AS service
 
-WORKDIR workspace/packages/service
+WORKDIR workspace
 
-CMD ["yarn", "ts-node", "src/index.ts"]
+CMD ["yarn", "workspace", "@idealjs/ponder-service", "run", "dev"]
 
 # studio
 FROM builder AS studio
 
-WORKDIR workspace/packages/studio
+WORKDIR workspace
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "workspace", "@idealjs/ponder-studio", "run", "dev"]
 
 # test
 FROM builder AS test
@@ -48,11 +48,11 @@ WORKDIR workspace
 
 RUN yarn lerna run generate
 
-CMD ["yarn", "lerna", "run", "coverage"]
+CMD ["yarn", "workspaces", "foreach", "run", "coverage"]
 
 # seed-db
 FROM builder AS seed-db
 
-WORKDIR workspace/packages/shared
+WORKDIR workspace
 
-CMD ["yarn", "prisma", "migrate", "reset", "--force"]
+CMD ["yarn", "workspace", "@idealjs/ponder-db", "run", "migrate", "deploy"]

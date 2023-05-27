@@ -8,12 +8,12 @@ generator zod {
 }
 
 generator node {
-  provider = "ts-node ./packages/db/src/generator-node/bin.ts"
+  provider = "ts-node ./src/generator-node/bin.ts"
   output   = "../../service/src/generated"
 }
 
 generator studio {
-  provider = "ts-node ./packages/db/src/generator-studio/bin.ts"
+  provider = "ts-node ./src/generator-studio/bin.ts"
   output   = "../../studio/src/generated"
 }
 
