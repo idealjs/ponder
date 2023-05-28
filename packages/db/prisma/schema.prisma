@@ -63,11 +63,10 @@ model Transition {
 }
 
 model Action {
-  id       String  @id @unique
-  schema   Schema? @relation(fields: [schemaId], references: [id])
-  schemaId String?
+  id      String  @id @unique
+  name    String  @unique
+  content String?
 
-  url         String?
-  content     String?
+  schema      Schema[]
   transitions Transition[]
 }
