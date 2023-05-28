@@ -59,7 +59,7 @@ model Transition {
 
   action   Action?  @relation(fields: [actionId], references: [id])
   actionId String?
-  schema   Schema[]
+  schemas   Schema[]
 }
 
 model Action {
@@ -67,6 +67,6 @@ model Action {
   name    String  @unique
   content String?
 
-  schema      Schema[]
+  schemas      Schema[]
   transitions Transition[]
 }
