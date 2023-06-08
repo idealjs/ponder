@@ -1,4 +1,5 @@
 import type { Action, Schema, State, Transition } from "@prisma/client";
+import { StateType } from "@prisma/client";
 
 import arrayToRecord from "./arrayToRecord";
 import transform from "./transform";
@@ -12,21 +13,20 @@ const runSchema = async (
   payload?: any
 ) => {
   const startState = schema.states.find((state) => {
-    return state.isStartState;
+    return state.stateType === StateType.START_STATE;
   });
+
   if (startState == null) {
     return;
   }
 
   return await transform(
-    startState,
+    { state: startState, payload, actionStack: [] },
     {
-      ...schema,
-      states: arrayToRecord(schema.states),
-      transitions: arrayToRecord(schema.transitions),
-      actions: arrayToRecord(schema.actions),
-    },
-    payload
+      stateRecords: arrayToRecord(schema.states),
+      transitionRecords: arrayToRecord(schema.transitions),
+      actionRecords: arrayToRecord(schema.actions),
+    }
   );
 };
 

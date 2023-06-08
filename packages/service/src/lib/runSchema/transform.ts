@@ -1,82 +1,63 @@
-import type { State, Transition } from "@prisma/client";
+import { Action, State, StateType, Transition } from "@prisma/client";
 
-import { Optional } from "../type";
-import act, { TransformAction } from "./act";
-
-export type TransformState = Optional<
-  Pick<State, "id" | "transitionId">,
-  "transitionId"
->;
-
-export type TransformTransition = Optional<
-  Pick<Transition, "id" | "actionId" | "faildToStateId" | "successToStateId">,
-  "actionId" | "faildToStateId" | "successToStateId"
->;
-
-export type { TransformAction } from "./act";
-
-export type TransformSchema = {
-  id: string;
-  states: Partial<Record<TransformState["id"], TransformState>>;
-  transitions: Partial<Record<TransformTransition["id"], TransformTransition>>;
-  actions: Partial<Record<TransformAction["id"], TransformAction>>;
-};
+import { EffectStatus } from "../effect/type";
+import act from "./act";
+import { IPipelineData } from "./type";
 
 const transform = async (
-  state: TransformState,
-  schema: TransformSchema,
-  payload?: any
-): Promise<{
-  stateId: string;
-  error?: any;
-  result?: any;
-}> => {
+  currentPipelineData: IPipelineData<unknown>,
+  records: {
+    stateRecords: Partial<Record<string, State>>;
+    transitionRecords: Partial<Record<string, Transition>>;
+    actionRecords: Partial<Record<string, Action>>;
+  }
+): Promise<IPipelineData<unknown>> => {
+  const { stateRecords, transitionRecords, actionRecords } = records;
+  const state = currentPipelineData.state;
+
   const transition = state?.transitionId
-    ? schema.transitions[state.transitionId]
+    ? transitionRecords[state.transitionId]
     : null;
 
   const action = transition?.actionId
-    ? schema.actions[transition.actionId]
+    ? actionRecords[transition.actionId]
     : null;
 
-  if (action == null) {
+  if (state?.stateType === StateType.FINAL_STATE) {
+    return currentPipelineData;
+  }
+
+  if (action?.content == null) {
     return {
-      stateId: state.id,
+      ...currentPipelineData,
+      payload: {
+        effectStatus: EffectStatus.FAILD,
+        data: undefined,
+      },
     };
   }
 
-  let nextPayload: any;
-  let result: any;
-  let error: any;
+  const result = await act({ content: action.content }, currentPipelineData);
 
-  const success = await act(action, {
-    payload,
-    setNextPayload(payload) {
-      nextPayload = payload;
-    },
-    setResult(_result: any) {
-      result = _result;
-    },
-    setError(_error: any) {
-      error = _error;
-    },
-  });
+  console.log("[debug] stateId", state?.id);
+  console.log("[debug] transition", transition?.id);
+  console.log("[debug] action", action?.id);
+  console.log("[debug] result", result);
 
-  const nextStateId = success
-    ? transition?.successToStateId
-    : transition?.faildToStateId;
+  const nextStateId =
+    result.status === EffectStatus.SUCCESS
+      ? transition?.successToStateId
+      : transition?.faildToStateId;
 
-  const nextState = nextStateId ? schema.states[nextStateId] : null;
+  const nextState = nextStateId != null ? stateRecords[nextStateId] : null;
 
-  if (nextState == null) {
-    return {
-      stateId: state.id,
-      result: result,
-      error: error,
-    };
-  }
+  const nextPipelineData = {
+    state: nextState,
+    payload: result.data,
+    actionStack: [action.id, ...(currentPipelineData.actionStack ?? [])],
+  };
 
-  return await transform(nextState, schema, nextPayload);
+  return await transform(nextPipelineData, records);
 };
 
 export default transform;

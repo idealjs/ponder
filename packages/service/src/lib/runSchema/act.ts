@@ -1,30 +1,38 @@
-import { Action } from "@prisma/client";
-
+import { EffectStatus } from "../effect/type";
 import parseModuleFromContent from "../parseModuleFromContent";
-import { Optional } from "../type";
+import { IPipelineData } from "./type";
 
-export type TransformAction = Optional<
-  Pick<Action, "id" | "content">,
-  "content"
->;
+interface IActionContent<Payload, Data> {
+  effect: (helper: { payload: Payload }) => {
+    status: EffectStatus;
+    data?: Data;
+  };
+  clean:(helper: { payloads: Payload[] })=>{
+
+  }
+}
 
 const act = async (
-  action: TransformAction,
-  helper: {
-    payload: any;
-    setNextPayload: (payload: any) => void;
-    setResult: (result: string) => void;
-    setError: (error: string) => void;
-  }
-) => {
+  action: { content: string },
+  currentPipelineData: IPipelineData<unknown>
+): Promise<{
+  status: EffectStatus;
+  error?: unknown;
+  data?: unknown;
+}> => {
   try {
-    if (action.content) {
-      const module = await parseModuleFromContent(action.content);
-      return module.default(helper);
-    }
-    return false;
+    const module = (await parseModuleFromContent(action.content)) as {
+      default: IActionContent<unknown, {}>;
+    };
+    const result = module.default.effect({
+      payload: currentPipelineData.payload,
+    });
+    return result;
   } catch (error) {
-    return false;
+    return {
+      status: EffectStatus.FAILD,
+      error: error,
+    };
   }
 };
 

@@ -24,17 +24,23 @@ datasource db {
 
 model Schema {
   id          String       @id @unique
+  name        String       @unique
   states      State[]
   transitions Transition[]
-  actions     Action[]
+}
+
+enum StateType {
+  FINAL_STATE
+  START_STATE
+  ORDINARY_STATE
 }
 
 model State {
-  id           String   @id @unique
-  name         String?
-  schema       Schema?  @relation(fields: [schemaId], references: [id])
-  schemaId     String?
-  isStartState Boolean?
+  id        String    @id @unique
+  name      String?
+  schema    Schema?   @relation(fields: [schemaId], references: [id])
+  schemaId  String?
+  stateType StateType @default(ORDINARY_STATE)
 
   fromFaildtransitions   Transition[] @relation("faildToStateOnTransition")
   fromSuccessTransitions Transition[] @relation("successToStateOnTransition")
@@ -44,6 +50,7 @@ model State {
 
   transition   Transition? @relation("startStateOnTransition", fields: [transitionId], references: [id])
   transitionId String?     @unique
+  tolerance    Int?
 }
 
 model Transition {
@@ -59,7 +66,7 @@ model Transition {
 
   action   Action?  @relation(fields: [actionId], references: [id])
   actionId String?
-  schemas   Schema[]
+  schemas  Schema[]
 }
 
 model Action {
@@ -67,6 +74,5 @@ model Action {
   name    String  @unique
   content String?
 
-  schemas      Schema[]
   transitions Transition[]
 }

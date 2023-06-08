@@ -18,7 +18,7 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-valtio": "^0.6.2",
-    "lerna": "^4.0.0",
+    "lerna": "^6.6.2",
     "lerna-update-wizard": "^1.1.2",
     "prettier": "^2.8.3"
   },
