@@ -4,7 +4,7 @@ WORKDIR workspace
 COPY package.json .
 COPY yarn.lock .
 COPY lerna.json .
-COPY tsconfig.json .
+COPY tsconfig.base.json .
 COPY .yarn .yarn
 COPY .yarnrc.yml .
 
